@@ -5,9 +5,7 @@ import AuthenticateUserService from '@modules/users/services/AuthenticateUserSer
 
 interface IResponseUser {
   id: string;
-  fullname: string;
   email: string;
-  avatarUrl?: string;
 }
 
 export default class SessionsController {
@@ -25,8 +23,6 @@ export default class SessionsController {
     const responseUser: IResponseUser = {
       id: user.id,
       email: user.email,
-      fullname: user.fullname,
-      avatarUrl: user.avatar?.url
     };
 
     return response.json({ responseUser, token });

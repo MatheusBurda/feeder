@@ -5,7 +5,6 @@ import CreateUserService from '@modules/users/services/CreateUserService';
 import ICreateUserDto from '@modules/users/dtos/ICreateUserDTO';
 
 interface IResponseUser {
-  fullname: string;
   email: string;
 }
 
@@ -19,7 +18,6 @@ export default class UsersController {
 
     const responseUser: IResponseUser = {
       email: user.email,
-      fullname: user.fullname,
     };
 
     return response.json(responseUser);
