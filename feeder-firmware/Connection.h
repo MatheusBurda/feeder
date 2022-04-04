@@ -1,13 +1,9 @@
+#pragma once
 
-//#include "Connection.h"
-
-#define LED 2
-
-void initSerial();
-
-// *******************************************************************************
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
+#include <Arduino.h>
+
 #define BASE_URL "http://jsonplaceholder.typicode.com/todos/1"
 
 class Connection {
@@ -70,33 +66,3 @@ public:
   }
   
 };
-// *******************************************************************************
-
-
-Connection api;
-
-
-void setup() {
-  pinMode (LED, OUTPUT);
-  digitalWrite(LED, 0);
-  initSerial();
-}
-
-void loop() {
- 
-//  if (api.isConnectedToWifi()) { //Check WiFi connection status
-//    api.makeRequest("");
-//    digitalWrite(LED, 1);
-//  }
-//  else{
-//    digitalWrite(LED, 0);
-//  }
-
-  Serial.println("huehue");
-  delay(30000);
-}
-
-void initSerial() {
-  Serial.begin(115200);
-  Serial.setDebugOutput(true);
-}
