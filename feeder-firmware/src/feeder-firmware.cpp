@@ -18,8 +18,7 @@ void loop() {
     /* if (api.isConnectedToWifi()) {
         api.makeRequest("");
     } */
-    Serial.println("PASTEL");
     sensor.read();
 
-    delay(3000);
+    delay(2000);
 }

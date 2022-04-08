@@ -7,7 +7,7 @@ DistanceSensor::~DistanceSensor() { }
 
 void DistanceSensor::read() {
     distance = distanceSensor.measureDistanceCm();
-    Serial.println("Distance: " + String(distance));
+    Serial.println("Distance: " + String(distance) + "cm");
 }
 
 float DistanceSensor::getDistance() const {
