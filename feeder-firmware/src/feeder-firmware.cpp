@@ -2,23 +2,23 @@
 
 extern "C++" {
 #include "Connection.h"
-#include "DistanceSensor.h"
+#include "Sensors/DistanceSensor.h"
 }
 
-/* Connection api; */
-DistanceSensor sensor; 
+Connection api;
+//DistanceSensor sensor; 
 
 void setup() {
     Serial.begin(9600);
-    // api.initWiFi("teupai", "pedropastel");
+    api.initWiFi("virusgratis2G", "mEWMJowj7A");
 }
 
 void loop() {
 
-    /* if (api.isConnectedToWifi()) {
+    if (api.isConnectedToWifi()) {
         api.makeRequest("");
-    } */
-    sensor.read();
+    }
+    //sensor.read();
 
     delay(2000);
 }
