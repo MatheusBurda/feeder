@@ -5,8 +5,10 @@ AjaxClient::AjaxClient(String baseUrl, WiFiClient* wifiClient)
   this->baseUrl = baseUrl;
   this->wifiClient = wifiClient;
 
-  if (!baseUrl.endsWith("/"))
-    baseUrl += "/";
+  Serial.println(baseUrl);
+
+  if (!this->baseUrl.endsWith("/"))
+    this->baseUrl += "/";
 
   client.setTimeout(30000);
 }
@@ -14,12 +16,13 @@ AjaxClient::AjaxClient(String baseUrl, WiFiClient* wifiClient)
 String AjaxClient::makeRequest(
   HttpMethod methodName, String path, Serializable* body)
 {
+
   if (path.startsWith("/"))
     path.remove(0);
 
   String url = baseUrl + path;
 
-  client.begin(*wifiClient, baseUrl + path);
+  client.begin(*wifiClient, url);
 
   int httpCode = 0;
   String response = "",
@@ -28,19 +31,19 @@ String AjaxClient::makeRequest(
   switch (methodName)
   {
   case (HttpMethod::GET):
-    client.GET();
+    httpCode = client.GET();
     break;
   
   case (HttpMethod::POST):
-    client.POST(bodyStr);
+    httpCode = client.POST(bodyStr);
     break;
 
   case (HttpMethod::PATCH):
-    client.PATCH(bodyStr);
+    httpCode = client.PATCH(bodyStr);
     break;
 
   case (HttpMethod::PUT):
-    client.PUT(bodyStr);
+    httpCode = client.PUT(bodyStr);
     break;
   }
 

@@ -14,7 +14,6 @@ String Connection::makeRequest(String path)
 void Connection::initWiFi(String ssid, String password) {
     delay(10);
     Serial.println("Connecting on: " + String(ssid));
-
     WiFi.begin(ssid, password);
     while (WiFi.status() != WL_CONNECTED) {
         delay(100);

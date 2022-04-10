@@ -6,7 +6,7 @@ extern "C++" {
 }
 
 Connection api;
-DistanceSensor sensor; 
+//DistanceSensor sensor; 
 
 void setup() {
     Serial.begin(9600);
@@ -18,7 +18,7 @@ void loop() {
     if (api.isConnectedToWifi()) {
         api.makeRequest("");
     }
-    sensor.read();
+    //sensor.read();
 
     delay(2000);
 }
