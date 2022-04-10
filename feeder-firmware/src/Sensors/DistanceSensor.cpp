@@ -1,4 +1,4 @@
-#include "DistanceSensor.h"
+#include "Sensors/DistanceSensor.h"
 
 DistanceSensor::DistanceSensor() :
 distanceSensor(DISTANCE_SENSOR_TRIGGER, DISTANCE_SENSOR_ECHO) { }
