@@ -1,20 +1,26 @@
-#include <user_interface.h> 
+#pragma once
+
 #include "Ports.h"
+#include <Servo.h>
+#include <user_interface.h>
 
 class EngineController {
 private:
+    int rotationPosition;
     int activation_dt;
     bool isRunning;
     os_timer_t timer;
-    bool rotateClockwise;
+    Servo engine;
 
-    // TODO: Clock to get current time
 public:
-    EngineController(int activation_dt);
+    EngineController();
     ~EngineController();
 
-    void activateEngine(void* param);
-    void deactivateEngine(void* param);
+    void init();
+
+    void activateEngineClockwise();
+
+    void activateEngineCounterClockwise();
 
     bool isActivationTime(int hr, int min);
 };

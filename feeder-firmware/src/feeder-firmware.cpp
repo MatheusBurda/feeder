@@ -3,22 +3,29 @@
 extern "C++" {
 #include "Connection.h"
 #include "Sensors/DistanceSensor.h"
+#include "Controllers/EngineController.h"
 }
 
-Connection api;
+//Connection api;
 //DistanceSensor sensor; 
+EngineController engine;
 
 void setup() {
     Serial.begin(9600);
-    api.initWiFi("virusgratis2G", "mEWMJowj7A");
+    //api.initWiFi("virusgratis2G", "mEWMJowj7A");
+    engine.init();
 }
 
 void loop() {
 
-    if (api.isConnectedToWifi()) {
+   /*  if (api.isConnectedToWifi()) {
         api.makeRequest("");
-    }
+    } */
     //sensor.read();
 
-    delay(2000);
+    engine.activateEngineClockwise();
+
+    
+
+    delay(15);
 }

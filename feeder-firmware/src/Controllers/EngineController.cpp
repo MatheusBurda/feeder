@@ -1,36 +1,35 @@
-#include <ESP8266WiFi.h>
 #include "Controllers/EngineController.h"
+#include <ESP8266WiFi.h>
 
-EngineController::EngineController(int activation_dt) :
-activation_dt(activation_dt),
-isRunning(false) {
-    /* os_timer_setfn(&timer, (os_timer_func_t*)activateEngine, NULL);
-    os_timer_arm(&timer, activation_dt, true); */
-
-    pinMode(ENGINE_PIN_CLOCKWISE, OUTPUT);
-    digitalWrite(ENGINE_PIN_CLOCKWISE, LOW);
+EngineController::EngineController() {
+    this->rotationPosition = 0;
 }
 
-EngineController::~EngineController() {
+EngineController::~EngineController() { }
+
+void EngineController::init() {
+    engine.attach(ENGINE_PIN);
+    engine.write(0);
 }
 
-void EngineController::activateEngine(void* param) {
-    if (isRunning)
-        digitalWrite(ENGINE_PIN_CLOCKWISE, HIGH);
+void EngineController::activateEngineClockwise() {
 
-    if (digitalRead(D0)) {
-        digitalWrite(D0, LOW);
-        digitalWrite(D1, HIGH);
-    } //
-    else {
-        digitalWrite(D1, LOW);
-        digitalWrite(D0, HIGH);
+    for (rotationPosition = 0; rotationPosition < 180; rotationPosition++) {
+        engine.write(rotationPosition);
+        delay(10);
+        Serial.println(rotationPosition);
     }
+
 }
 
-void EngineController::deactivateEngine(void* param) {
-    if (!isRunning)
-        digitalWrite(ENGINE_PIN_CLOCKWISE, LOW);
+void EngineController::activateEngineCounterClockwise() {
+
+    for (rotationPosition = 180; rotationPosition >= 0; rotationPosition--) {
+        engine.write(rotationPosition);
+        delay(10);
+        Serial.println(rotationPosition);
+    }
+    
 }
 
 bool EngineController::isActivationTime(int hr, int min) {
