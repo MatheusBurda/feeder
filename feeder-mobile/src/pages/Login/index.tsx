@@ -1,27 +1,17 @@
 import React from 'react';
-import { StyleSheet, TextInput, View, Text } from 'react-native';
+import { TextInput, Text } from 'react-native';
 
-// import { Container } from './styles';
+import * as S from './styles';
 
 const Login: React.FC = () => {
   return (
-    <View style={styles.container}>
+    <S.Container>
       <Text>Username</Text>
       <TextInput />
       <Text>Password</Text>
       <TextInput secureTextEntry />
-    </View>
+    </S.Container>
   );
 };
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 export default Login;
