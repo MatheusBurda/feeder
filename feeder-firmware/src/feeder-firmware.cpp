@@ -1,31 +1,17 @@
 #include <Esp.h>
 
 extern "C++" {
-#include "Connection.h"
-#include "Sensors/DistanceSensor.h"
-#include "Controllers/EngineController.h"
+#include "Program.h"
 }
 
-//Connection api;
-//DistanceSensor sensor; 
-EngineController engine;
+Program program;
 
 void setup() {
     Serial.begin(9600);
-    //api.initWiFi("virusgratis2G", "mEWMJowj7A");
-    engine.init();
+    program.init();
 }
 
 void loop() {
-
-   /*  if (api.isConnectedToWifi()) {
-        api.makeRequest("");
-    } */
-    //sensor.read();
-
-    engine.activateEngineClockwise();
-
-    
-
+    program.execute();
     delay(15);
 }

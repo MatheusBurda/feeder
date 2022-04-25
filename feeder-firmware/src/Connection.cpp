@@ -33,3 +33,9 @@ void Connection::initWiFi(String ssid, String password) {
 bool Connection::isConnectedToWifi() {
     return WiFi.status() == WL_CONNECTED;
 }
+
+void Connection::loadFirmwareSettings(FirmwareSettings* output)
+{
+    String response = api.makeGet(FIRMWARE_SETTINGS_GET);
+    output->FromJson(response);
+}
