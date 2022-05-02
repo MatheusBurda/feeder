@@ -1,3 +1,4 @@
+import ICurrentTimeDto from '@modules/firmwares/dtos/ICurrentTimeDto';
 import CreateFirmwareService from '@modules/firmwares/services/CreateFirmwareService';
 import GetFirmwareService from '@modules/firmwares/services/GetFirmwareService';
 import ListUserFirmwaresService from '@modules/firmwares/services/ListUserFirmwaresService';
@@ -39,5 +40,17 @@ export default class FirmwaresControllers {
     const firmware = await updateService.execute(request.body);
 
     return response.json(firmware);
+  }
+
+  public async getCurrentTime(request: Request, response: Response): Promise<Response> {
+    const current = new Date();
+
+    const time: ICurrentTimeDto = {
+      hours: current.getUTCHours() - 3, // Brazilian Date
+      minutes: current.getUTCMinutes(),
+      seconds: current.getUTCSeconds()
+    };
+
+    return response.json(time);
   }
 }

@@ -13,4 +13,6 @@ firmwareRouter.get('', ensureAuthenticated, firmwareController.listByUserId);
 
 firmwareRouter.get(':id', firmwareController.findById);
 
+firmwareRouter.get('time', firmwareController.getCurrentTime)
+
 export default firmwareRouter;
