@@ -5,9 +5,7 @@ void Program::init()
 {
   loadedSettings = false;
   clock = Clock::getInstance();
-
   engine.init();
-
   connection.initWiFi("teupai", "pedropastel");
 }
 
@@ -15,11 +13,19 @@ void Program::feed()
 {
   int doses = firmwareSettings.getDoses();
 
-  // TODO: Engine must work to feed based on doses
+  for (int i = 0; i < doses; i++)
+  {
+    delay(500);
+    engine.open();
+    delay(500);
+    engine.close();
+  }
 }
 
 void Program::execute()
 {
+  clock->update(&connection);
+
   if (connection.isConnectedToWifi())
   {
     if (!loadedSettings)

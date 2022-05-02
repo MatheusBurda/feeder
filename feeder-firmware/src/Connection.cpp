@@ -39,3 +39,9 @@ void Connection::loadFirmwareSettings(FirmwareSettings* output)
     String response = api.makeGet(FIRMWARE_SETTINGS_GET);
     output->FromJson(response);
 }
+
+void Connection::getCurrentTime(CurrentTime* output)
+{
+    String response = api.makeGet(CURRENT_TIME_GET);
+    output->FromJson(response);
+}

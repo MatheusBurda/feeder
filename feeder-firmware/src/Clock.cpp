@@ -1,6 +1,8 @@
 #include "Clock.h"
 
 Clock::Clock() {
+    loaded = false;
+
     hours = 0;
     minutes = 0;
     seconds = 0;
@@ -34,8 +36,17 @@ int Clock::getSeconds() const
     return seconds;
 }
 
-void Clock::update()
+void Clock::update(Connection* connection)
 {
+    if (!loaded) {
+        CurrentTime time;
+        connection->getCurrentTime(&time);
+        hours = time.getHours();
+        minutes = time.getMinutes();
+        seconds = time.getSeconds();
+        loaded = true;
+    }
+
     steady_clock::time_point now = steady_clock::now();
 
     seconds += duration_cast<std::chrono::seconds>(now - last).count();

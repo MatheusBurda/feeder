@@ -5,6 +5,7 @@
 #include <Esp.h>
 #include "Ajax/AjaxClient.h"
 #include "Serializables/FirmwareSettings.h"
+#include "Serializables/CurrentTime.h"
 #include "Ajax/ApiUtils.h"
 using namespace Serializables;
 
@@ -26,4 +27,6 @@ public:
     bool isConnectedToWifi();
 
     void loadFirmwareSettings(FirmwareSettings* output);
+
+    void getCurrentTime(CurrentTime* output);
 };

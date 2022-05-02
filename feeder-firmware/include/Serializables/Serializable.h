@@ -1,4 +1,5 @@
 #pragma once
+#include <ArduinoJson.h>
 
 #include <Esp.h>
 
