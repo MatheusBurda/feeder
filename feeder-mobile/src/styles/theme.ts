@@ -1,11 +1,18 @@
 
 export default {
     colors: {
-        red: "#FF101F",
-        green: "#47BE37",
-        background: "#131A22",
-        backgroundLight: "#2C365E",
-        text: "#fff",
+        red: '#E83F5B',
+
+        green: '#32B768',
+        green_dark: '#2B7A4B',
+
+        shape: '#F0F0F0',
+
+        background: '#FFFFFF',
+        backgroundDark: '#131A22',
+
+        text: '#FFF',
+        placeholder: '#999999'
     },
     fonts: {
         regular: 'Poppins_400Regular',
