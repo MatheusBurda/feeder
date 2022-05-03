@@ -24,8 +24,5 @@ void loop() {
     //sensor.read();
 
     engine.activateEngineClockwise();
-
-    
-
-    delay(15);
+    engine.activateEngineCounterClockwise();
 }

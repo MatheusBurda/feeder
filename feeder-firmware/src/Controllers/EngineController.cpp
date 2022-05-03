@@ -14,9 +14,9 @@ void EngineController::init() {
 
 void EngineController::activateEngineClockwise() {
 
-    for (rotationPosition = 0; rotationPosition < 180; rotationPosition++) {
+    for (rotationPosition = 0; rotationPosition < 95; rotationPosition++) {
         engine.write(rotationPosition);
-        delay(10);
+        delay(5);
         Serial.println(rotationPosition);
     }
 
@@ -24,9 +24,9 @@ void EngineController::activateEngineClockwise() {
 
 void EngineController::activateEngineCounterClockwise() {
 
-    for (rotationPosition = 180; rotationPosition >= 0; rotationPosition--) {
+    for (rotationPosition = 95; rotationPosition >= 0; rotationPosition--) {
         engine.write(rotationPosition);
-        delay(10);
+        delay(5);
         Serial.println(rotationPosition);
     }
     
