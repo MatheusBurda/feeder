@@ -9,7 +9,6 @@ private:
     int rotationPosition;
     int activation_dt;
     bool isRunning;
-    os_timer_t timer;
     Servo engine;
 
 public:
@@ -18,9 +17,6 @@ public:
 
     void init();
 
-    void activateEngineClockwise();
-
-    void activateEngineCounterClockwise();
-
-    bool isActivationTime(int hr, int min);
+    void open();
+    void close();
 };

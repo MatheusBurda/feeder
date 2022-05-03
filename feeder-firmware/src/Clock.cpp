@@ -1,6 +1,13 @@
 #include "Clock.h"
 
 Clock::Clock() {
+    loaded = false;
+
+    hours = 0;
+    minutes = 0;
+    seconds = 0;
+
+    last = steady_clock::now();
 }
 
 Clock::~Clock() {
@@ -12,4 +19,59 @@ Clock* Clock::getInstance() {
         instance = new Clock();
 
     return instance;
+}
+
+int Clock::getHour() const
+{
+    return hours;
+}
+
+int Clock::getMinutes() const
+{
+    return minutes;
+}
+
+int Clock::getSeconds() const
+{
+    return seconds;
+}
+
+void Clock::update(Connection* connection)
+{
+    if (!loaded) {
+        CurrentTime time;
+        connection->getCurrentTime(&time);
+        hours = time.getHours();
+        minutes = time.getMinutes();
+        seconds = time.getSeconds();
+        loaded = true;
+    }
+
+    steady_clock::time_point now = steady_clock::now();
+
+    seconds += duration_cast<std::chrono::seconds>(now - last).count();
+
+    last = now;
+
+    if (seconds >= 60)
+    {
+        minutes++;
+        seconds = 0;
+    }
+
+    if (minutes >= 60)
+    {
+        hours++;
+        minutes = 0;
+    }
+
+    if (hours >= 24)
+    {
+        hours = 0;
+    }
+}
+
+String Clock::toString() const
+{
+    return String(hours) + ":" + String(minutes) + ":" + String(seconds);
 }

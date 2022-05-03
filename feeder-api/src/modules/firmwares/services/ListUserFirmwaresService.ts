@@ -1,12 +1,11 @@
 import IUsersRepository from "@modules/users/repositories/IUsersRepository";
 import AppError from "@shared/errors/AppError";
 import { inject, injectable } from "tsyringe";
-import ICreateFirmwareDto from "../dtos/ICreateFirmwareDto";
 import Firmware from "../infra/typeorm/entities/Firmware";
 import IFirmwaresRepository from "../repositories/IFirmwaresRepository";
 
 @injectable()
-export default class CreateFirmwareService {
+class ListUserFirmwaresService {
   constructor(
     @inject('FirmwaresRepository')
     private firmwareRepository: IFirmwaresRepository,
@@ -14,13 +13,19 @@ export default class CreateFirmwareService {
     private usersRepository: IUsersRepository,
   ) {}
 
-  public async execute(firmware: ICreateFirmwareDto): Promise<Firmware> {
-    // TODO: Create validation
-    const userExists = !!await this.usersRepository.findById(firmware.ownerId);
+  public async execute(userId: string): Promise<Firmware[]> {
+    const userExists = !!await this.usersRepository.findById(userId);
 
     if (!userExists)
       throw new AppError(`User doesn't exists.`);
 
-    return await this.firmwareRepository.create(firmware);
+    const firmwares = await this.firmwareRepository.listByUserId(userId);
+
+    if (!firmwares)
+      throw new AppError(`Firmwares doesn't exists.`);
+
+    return firmwares;
   }
 }
+
+export default ListUserFirmwaresService;

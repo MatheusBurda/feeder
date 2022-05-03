@@ -9,7 +9,7 @@ export default class Firmware extends BaseEntity {
   @JoinColumn({ name: 'ownerId' })
   owner: User;
 
-  @Column({ type: 'float' })
+  @Column({type: 'float', })
   minHeight: number;
 
   @Column({ type: 'int' })
