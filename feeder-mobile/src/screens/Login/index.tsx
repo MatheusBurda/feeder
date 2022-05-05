@@ -2,51 +2,130 @@ import React from 'react';
 
 import { useNavigation } from '@react-navigation/native';
 import { navigationProp } from '../../routes/stack.routes';
+import { Controller, useForm } from 'react-hook-form';
 
 import * as S from './styles';
+import * as G from '../../styles/styles'
+import theme from '../../styles/theme';
 import api from '../../services/api';
+import { isEmail } from '../../utils/verifyEmail';
+
+interface LoginData {
+    loginInfo: string;
+    password: string;
+}
+
+interface ApiLoginInfo {
+    username?: string;
+    email?: string;
+    password: string;
+}
+
+interface Response {
+    user: {
+        email: string;
+        username: string;
+    },
+    token: string;
+}
 
 const Login: React.FC = () => {
 
     const navigation = useNavigation<navigationProp>();
 
-    const handleSubmit = () => {
-
-        /* Testar RegEx se é email ou nao e depois fazer o request */
-
-        try {
-
-
-        } catch (err) {
-
-        }
-
+    const navigateToSignUp = () => {
         navigation.navigate('SignUp');
     }
 
-    return (
-        <S.SafeAreaView>
+    const { control, handleSubmit, getValues, formState: { errors } } = useForm<LoginData>({
+        defaultValues: {
+            loginInfo: '',
+            password: ''
+        }
+    });
 
-            <S.Container>
+    const onSubmit = async () => {
+
+        const { loginInfo, password } = getValues();
+
+        const apiLoginInfo: ApiLoginInfo = isEmail(loginInfo) ?
+            { email: loginInfo, password } :
+            { username: loginInfo, password };
+
+        try {
+
+            const { data } = await api.post<Response>("/users", apiLoginInfo);
+
+            api.defaults.headers.common['Authorization'] = 'Bearer ' + data.token;
+
+            navigation.navigate('Home');
+
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+
+    return (
+        <G.SafeAreaView>
+
+            <G.Container>
 
                 <S.Image source={require('../../../assets/cw.png')} />
-                <S.TextInput
-                    placeholder='Email or Username'
-                    autoCompleteType='email'
-                    placeholderTextColor={'#999999'}
-                />
-                <S.TextInput
-                    secureTextEntry
-                    placeholder='Password'
-                    placeholderTextColor={'#999999'}
-                />
-                <S.Button onPress={handleSubmit}>
-                    <S.Text>Sign in</S.Text>
-                </S.Button>
 
-            </S.Container>
+                <Controller
+                    control={control}
+                    rules={{
+                        required: true
+                    }}
+                    render={({ field: { onChange, onBlur, value } }) => (
+                        <G.TextInput
+                            placeholder='Email or Username'
+                            autoCompleteType='email'
+                            placeholderTextColor={theme.colors.placeholder}
+                            onBlur={onBlur}
+                            onChangeText={onChange}
+                            value={value}
+                        />
+                    )}
+                    name="loginInfo"
+                />
+                {errors.loginInfo && <G.Error>{errors.loginInfo.message}</G.Error>}
 
-        </S.SafeAreaView>
+
+                <Controller
+                    control={control}
+                    rules={{
+                        required: true,
+                        minLength: 8
+                    }}
+                    render={({ field: { onChange, onBlur, value } }) => (
+                        <G.TextInput
+                            placeholder='Password'
+                            placeholderTextColor={theme.colors.placeholder}
+                            onBlur={onBlur}
+                            onChangeText={onChange}
+                            value={value}
+                            secureTextEntry
+                        />
+                    )}
+                    name="password"
+                />
+                {errors.password && <G.Error>{errors.password.message}</G.Error>}
+
+                <G.Button onPress={() => handleSubmit(onSubmit)} >
+                    <G.Text >Sign in</G.Text>
+                </G.Button>
+
+                <S.Text>
+                    Don't have an account?  <S.Link onPress={navigateToSignUp}>
+                        Sign Up
+                    </S.Link>
+                </S.Text>
+
+            </G.Container>
+
+        </G.SafeAreaView>
     );
 };
 

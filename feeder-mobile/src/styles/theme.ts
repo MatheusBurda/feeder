@@ -7,8 +7,9 @@ export default {
         green_dark: '#2B7A4B',
 
         shape: '#F0F0F0',
+        border: '#FFF',
 
-        background: '#FFFFFF',
+        background: '#FFF',
         backgroundDark: '#131A22',
 
         text: '#FFF',
