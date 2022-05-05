@@ -2,6 +2,7 @@ import ICurrentTimeDto from '@modules/firmwares/dtos/ICurrentTimeDto';
 import CreateFirmwareService from '@modules/firmwares/services/CreateFirmwareService';
 import GetFirmwareService from '@modules/firmwares/services/GetFirmwareService';
 import ListUserFirmwaresService from '@modules/firmwares/services/ListUserFirmwaresService';
+import NotifyRechargeService from '@modules/firmwares/services/NotifyRechargeService';
 import UpdateFirmwareService from '@modules/firmwares/services/UpdateFirmwareService';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
@@ -16,6 +17,16 @@ export default class FirmwaresControllers {
     });
 
     return response.json(firmware);
+  }
+
+  public async notifyRecharge(request: Request, response: Response): Promise<Response> {
+    const ownerId = request.user.id;
+    const firmwareId = request.params.id;
+    const notifyService = container.resolve(NotifyRechargeService);
+
+    const result = await notifyService.execute(firmwareId, ownerId);
+
+    return response.json({ success: result });
   }
 
   public async findById(request: Request, response: Response): Promise<Response> {

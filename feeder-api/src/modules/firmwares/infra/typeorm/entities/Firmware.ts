@@ -19,4 +19,7 @@ export default class Firmware extends BaseEntity {
     cascade: ['insert', 'remove', 'update']
   })
   activationTimes: ActivationTime[];
+
+  @Column({ type: 'bool', default: false })
+  recharge: boolean;
 }

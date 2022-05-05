@@ -7,6 +7,8 @@ const firmwareController = new FirmwaresControllers();
 
 firmwareRouter.post('', ensureAuthenticated, firmwareController.create);
 
+firmwareRouter.patch(':id', ensureAuthenticated, firmwareController.notifyRecharge);
+
 firmwareRouter.put(':id', ensureAuthenticated, firmwareController.updateById);
 
 firmwareRouter.get('', ensureAuthenticated, firmwareController.listByUserId);
