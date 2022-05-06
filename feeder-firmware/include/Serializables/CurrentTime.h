@@ -1,8 +1,6 @@
 #pragma once
 #include "./Serializable.h"
 
-using namespace std;
-
 namespace Serializables
 {
   class CurrentTime : public Serializable

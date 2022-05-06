@@ -12,7 +12,7 @@ class NotifyRechargeService {
     private usersRepository: IUsersRepository,
   ) {}
 
-  public async execute(firmwareId: string, userId: string): Promise<boolean> {
+  public async execute(firmwareId: string, userId: string, value: boolean = true): Promise<boolean> {
     const userExists = !!await this.usersRepository.findById(userId);
 
     if (!userExists)
@@ -23,7 +23,7 @@ class NotifyRechargeService {
     if (!firmware)
       throw new AppError(`Firmwares doesn't exists.`);
 
-    firmware.recharge = true;
+    firmware.recharge = value;
 
     return firmware.recharge;
   }

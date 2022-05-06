@@ -33,7 +33,10 @@ String FirmwareSettings::toJson()
 
   String output;
   serializeJson(doc, output);
+
+  return output;
 }
+
 void FirmwareSettings::FromJson(String objectStr)
 {
   StaticJsonDocument<1024> doc;
@@ -74,7 +77,7 @@ int FirmwareSettings::getDoses() const
   return doses;
 }
 
-vector<ActivationTime> FirmwareSettings::getActivationTimes() const
+std::vector<ActivationTime> FirmwareSettings::getActivationTimes() const
 {
   return activationTimes;
 }

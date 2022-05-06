@@ -9,8 +9,6 @@
 #include "Ajax/ApiUtils.h"
 using namespace Serializables;
 
-#define BASE_URL "http://jsonplaceholder.typicode.com/todos/1"
-
 class Connection {
 private:
     AjaxClient api;
@@ -29,4 +27,6 @@ public:
     void loadFirmwareSettings(FirmwareSettings* output);
 
     void getCurrentTime(CurrentTime* output);
+
+    void notifyRecharge();
 };

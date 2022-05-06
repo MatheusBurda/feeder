@@ -23,8 +23,9 @@ export default class FirmwaresControllers {
     const ownerId = request.user.id;
     const firmwareId = request.params.id;
     const notifyService = container.resolve(NotifyRechargeService);
+    const { value } = request.body;
 
-    const result = await notifyService.execute(firmwareId, ownerId);
+    const result = await notifyService.execute(firmwareId, ownerId, value ?? false);
 
     return response.json({ success: result });
   }

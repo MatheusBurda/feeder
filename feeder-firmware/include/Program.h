@@ -21,6 +21,7 @@ private:
   void feed();
   
   bool loadedSettings;
+  int lastNotificationHour;
 
 public:
   Program() { };

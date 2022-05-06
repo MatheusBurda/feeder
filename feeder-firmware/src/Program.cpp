@@ -3,6 +3,7 @@
 
 void Program::init()
 {
+  lastNotificationHour = 0;
   loadedSettings = false;
   clock = Clock::getInstance();
   engine.init();
@@ -37,7 +38,7 @@ void Program::execute()
 
   if (loadedSettings)
   {
-    vector<ActivationTime> times = firmwareSettings.getActivationTimes();
+    std::vector<ActivationTime> times = firmwareSettings.getActivationTimes();
 
     for (ActivationTime time : times)
     {
@@ -49,7 +50,7 @@ void Program::execute()
 
     if (sensor.getDistance() >= firmwareSettings.getMinHeight())
     {
-      feed();
+      connection.notifyRecharge();
     }
   }
 }
