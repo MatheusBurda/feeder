@@ -9,8 +9,6 @@
 #include "Ajax/ApiUtils.h"
 using namespace Serializables;
 
-#define BASE_URL "http://jsonplaceholder.typicode.com/todos/1"
-
 class Connection {
 private:
     AjaxClient api;
