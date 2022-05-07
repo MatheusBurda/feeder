@@ -27,4 +27,6 @@ public:
     void loadFirmwareSettings(FirmwareSettings* output);
 
     void getCurrentTime(CurrentTime* output);
+
+    void notifyRecharge();
 };

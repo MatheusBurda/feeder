@@ -3,8 +3,6 @@
 #include "ActivationTime.h"
 #include <vector>
 
-using namespace std;
-
 namespace Serializables
 {
   class FirmwareSettings : public Serializable
@@ -13,7 +11,7 @@ namespace Serializables
     String id;
     float minHeight;
     int doses;
-    vector<ActivationTime> activationTimes;
+    std::vector<ActivationTime> activationTimes;
 
   public:
     FirmwareSettings();
@@ -25,6 +23,6 @@ namespace Serializables
     String getId() const;
     float getMinHeight() const;
     int getDoses() const;
-    vector<ActivationTime> getActivationTimes() const;
+    std::vector<ActivationTime> getActivationTimes() const;
   };
 }

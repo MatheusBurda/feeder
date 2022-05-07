@@ -2,8 +2,6 @@
 #include "./Serializable.h"
 #include <vector>
 
-using namespace std;
-
 namespace Serializables
 {
   class ActivationTime : public Serializable

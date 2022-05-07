@@ -1,5 +1,7 @@
 #include "Clock.h"
 
+Clock* Clock::instance = nullptr;
+
 Clock::Clock() {
     loaded = false;
 
@@ -7,7 +9,7 @@ Clock::Clock() {
     minutes = 0;
     seconds = 0;
 
-    last = steady_clock::now();
+    last = std::chrono::steady_clock::now();
 }
 
 Clock::~Clock() {
@@ -47,9 +49,9 @@ void Clock::update(Connection* connection)
         loaded = true;
     }
 
-    steady_clock::time_point now = steady_clock::now();
+    std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
 
-    seconds += duration_cast<std::chrono::seconds>(now - last).count();
+    seconds += std::chrono::duration_cast<std::chrono::seconds>(now - last).count();
 
     last = now;
 

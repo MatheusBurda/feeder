@@ -1,14 +1,12 @@
 #pragma once
 #include <chrono>
-#include <Arduino.h>
 #include "Connection.h"
-using namespace std::chrono;
 
 class Clock {
 private:
     static Clock* instance;
     Clock();
-    steady_clock::time_point last;
+    std::chrono::steady_clock::time_point last;
 
     bool loaded;
 
@@ -27,5 +25,3 @@ public:
 
     String toString() const;    
 };
-
-Clock* Clock::instance = nullptr;

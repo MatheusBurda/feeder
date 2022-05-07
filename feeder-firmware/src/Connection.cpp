@@ -45,3 +45,8 @@ void Connection::getCurrentTime(CurrentTime* output)
     String response = api.makeGet(CURRENT_TIME_GET);
     output->FromJson(response);
 }
+
+void Connection::notifyRecharge()
+{
+    api.makePatch(String(NOTIFY_RECHARGE_PATCH) + FIRMWARE_ID, nullptr);
+}

@@ -1,11 +1,13 @@
 #include "Program.h"
 #include "ESP8266WiFi.h"
 
+
 void Program::init() {
-    loadedSettings = false;
-    clock = Clock::getInstance();
-    engine.init();
-    connection.initWiFi("teupai", "pedropastel");
+  lastNotificationHour = 0;
+  loadedSettings = false;
+  clock = Clock::getInstance();
+  engine.init();
+  connection.initWiFi("teupai", "pedropastel");
 }
 
 void Program::feed() {
@@ -18,35 +20,34 @@ void Program::feed() {
     }
 }
 
+
 void Program::execute() {
-    feed();
-    delay(10000);
-    /* clock->update(&connection);
+  clock->update(&connection);
 
-    if (connection.isConnectedToWifi())
+  if (connection.isConnectedToWifi())
+  {
+    if (!loadedSettings)
     {
-      if (!loadedSettings)
-      {
-        connection.loadFirmwareSettings(&firmwareSettings);
-        loadedSettings = true;
-      }
+      connection.loadFirmwareSettings(&firmwareSettings);
+      loadedSettings = true;
     }
+  }
 
-    if (loadedSettings)
+  if (loadedSettings)
+  {
+    std::vector<ActivationTime> times = firmwareSettings.getActivationTimes();
+
+    for (ActivationTime time : times)
     {
-      vector<ActivationTime> times = firmwareSettings.getActivationTimes();
-
-      for (ActivationTime time : times)
-      {
-        if (time.getHour() >= clock->getHour())
-        {
-          feed();
-        }
-      }
-
-      if (sensor.getDistance() >= firmwareSettings.getMinHeight())
+      if (time.getHour() >= clock->getHour())
       {
         feed();
       }
-    } */
+    }
+
+    if (sensor.getDistance() >= firmwareSettings.getMinHeight())
+    {
+      connection.notifyRecharge();
+    }
+  }
 }
