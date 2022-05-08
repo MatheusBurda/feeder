@@ -18,6 +18,7 @@ export const SafeAreaView = styled.SafeAreaView`
     align-items: center;
     justify-content: space-around;
     width: 100%;
+    height: 100%;
 `;
 
 export const Container = styled.View`
@@ -28,6 +29,7 @@ export const Container = styled.View`
     background-color: ${theme.colors.backgroundDark};
     flex: 1;
     width: 100%;
+    padding: 15px;
 `;
 
 export const TextInput = styled.TextInput`
@@ -37,15 +39,18 @@ export const TextInput = styled.TextInput`
     height: 48px;
     font-size: 24px;
     color: ${theme.colors.text};
-    width: 80%;
+    width: 90%;
     padding-left: 16px;
 `;
 
 export const Button = styled.TouchableHighlight`
-    border-radius: 16px;
-    margin: 16px 0;
+    width: 90%;
+    border-radius: 5px;
+    margin: 16px 0 0 0;
     padding: 16px 32px;
     background-color:  ${theme.colors.green};
+    justify-content: center;
+    align-items: center;
 `;
 
 export const Text = styled.Text`

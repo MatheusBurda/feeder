@@ -18,3 +18,13 @@ export const Text = styled.Text`
     font-size: 18px;
     font-family: ${theme.fonts.regular};
 `;
+
+export const Container = styled.View`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: ${theme.colors.backgroundDark};
+    width: 100%;
+    padding: 15px;
+`;

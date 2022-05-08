@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { SimpleLineIcons } from '@expo/vector-icons';
-import { Container, Icon, Text } from './styles';
+import * as S from './styles';
 
 interface HeaderProps {
     title: string;
@@ -14,16 +14,16 @@ export function Header({ title }: HeaderProps) {
     }
 
     return (
-        <Container>
-            <Text>{title}</Text>
+        <S.Container>
+            <S.Text>{title}</S.Text>
 
-            <Icon onPress={handlePress}>
+            <S.Icon onPress={handlePress}>
                 <SimpleLineIcons
                     name="menu"
                     style={{ fontSize: 28, color: '#fff' }}
                 />
-            </Icon>
-        </Container>
+            </S.Icon>
+        </S.Container>
     );
 }
 

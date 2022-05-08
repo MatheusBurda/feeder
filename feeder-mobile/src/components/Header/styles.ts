@@ -13,9 +13,9 @@ export const Container = styled.View`
 `
 
 export const Text = styled.Text`
-    font-size: 32px;
+    font-size: 38px;
     color: ${theme.colors.shape};
-    font-family: ${theme.fonts.medium};
+    font-family: ${theme.fonts.semiBold};
     line-height: 40px;
 `;
 
