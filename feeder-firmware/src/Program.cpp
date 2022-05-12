@@ -1,8 +1,8 @@
 #include "Program.h"
 #include "ESP8266WiFi.h"
 
-void Program::init()
-{
+
+void Program::init() {
   lastNotificationHour = 0;
   loadedSettings = false;
   clock = Clock::getInstance();
@@ -10,21 +10,18 @@ void Program::init()
   connection.initWiFi("teupai", "pedropastel");
 }
 
-void Program::feed()
-{
-  int doses = firmwareSettings.getDoses();
+void Program::feed() {
+    int doses = firmwareSettings.getDoses();
 
-  for (int i = 0; i < doses; i++)
-  {
-    delay(500);
-    engine.open();
-    delay(500);
-    engine.close();
-  }
+    for (int i = 0; i < doses; i++) {
+        engine.open();
+        delay(500);
+        engine.close();
+    }
 }
 
-void Program::execute()
-{
+
+void Program::execute() {
   clock->update(&connection);
 
   if (connection.isConnectedToWifi())

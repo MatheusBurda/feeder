@@ -1,12 +1,15 @@
 import React from 'react';
 
 import { useNavigation } from '@react-navigation/native';
+import { navigationProp } from '../../routes/stack.routes';
+import { Controller, useForm } from 'react-hook-form';
 import { Entypo } from '@expo/vector-icons';
 
 import * as S from './styles';
-
-import { navigationProp } from '../../routes/stack.routes';
+import * as G from '../../styles/styles'
+import theme from '../../styles/theme';
 import api from '../../services/api';
+import { isEmail } from '../../utils/verifyEmail';
 
 interface Response {
     user: {
@@ -16,16 +19,29 @@ interface Response {
     token: string;
 }
 
+interface FormData {
+    username: string;
+    email: string;
+    password: string;
+}
+
 const SignUp: React.FC = () => {
 
-    const navigation = useNavigation<navigationProp>();
+    const { control, handleSubmit, getValues, formState: { errors } } = useForm<FormData>({
+        defaultValues: {
+            username: '',
+            email: '',
+            password: ''
+        }
+    });
 
-    const handleSubmit = async () => {
+    const onSubmit = async () => {
+
+        const { username, email, password } = getValues();
+
         try {
 
-            const { data } = await api.post<Response>("/users", {
-                email: "burjhonson@utfpr.edu.br",
-                password: "pastel" });
+            const { data } = await api.post<Response>("/users",);
 
             api.defaults.headers.common['Authorization'] = 'Bearer ' + data.token;
 
@@ -34,15 +50,18 @@ const SignUp: React.FC = () => {
         } catch (err) {
             console.log(err);
         }
+
     }
+
+    const navigation = useNavigation<navigationProp>();
 
     const returnToLogin = () => {
         navigation.navigate('Login');
     }
 
     return (
-        <S.SafeAreaView >
-            <S.Container >
+        <G.SafeAreaView >
+            <G.Container >
 
                 <S.IconButton onPress={returnToLogin}>
                     <Entypo
@@ -51,27 +70,71 @@ const SignUp: React.FC = () => {
                     />
                 </S.IconButton>
 
-                <S.TextInput
-                    placeholder='Nome'
-                    autoCompleteType='name'
-                    placeholderTextColor={'#999999'}
+                <Controller
+                    control={control}
+                    rules={{
+                        required: true,
+                        minLength: 8
+                    }}
+                    render={({ field: { onChange, onBlur, value } }) => (
+                        <G.TextInput
+                            placeholder='Username'
+                            autoCompleteType='username'
+                            placeholderTextColor={theme.colors.placeholder}
+                            onBlur={onBlur}
+                            onChangeText={onChange}
+                            value={value}
+                        />
+                    )}
+                    name="username"
                 />
+                {errors.username && <G.Error>{errors.username.message}</G.Error>}
 
-                <S.TextInput
-                    placeholder='Email'
-                    autoCompleteType='email'
-                    placeholderTextColor={'#999999'}
+                <Controller
+                    control={control}
+                    rules={{
+                        required: true,
+                        minLength: 8
+                    }}
+                    render={({ field: { onChange, onBlur, value } }) => (
+                        <G.TextInput
+                            placeholder='Email'
+                            autoCompleteType='email'
+                            placeholderTextColor={theme.colors.placeholder}
+                            onBlur={onBlur}
+                            onChangeText={onChange}
+                            value={value}
+                        />
+                    )}
+                    name="email"
                 />
-                <S.TextInput
-                    secureTextEntry
-                    placeholder='Password'
-                    placeholderTextColor={'#999999'}
+                {errors.email && <G.Error>{errors.email.message}</G.Error>}
+
+                <Controller
+                    control={control}
+                    rules={{
+                        required: true,
+                        minLength: 8
+                    }}
+                    render={({ field: { onChange, onBlur, value } }) => (
+                        <G.TextInput
+                            placeholder='Password'
+                            placeholderTextColor={theme.colors.placeholder}
+                            onBlur={onBlur}
+                            onChangeText={onChange}
+                            value={value}
+                            secureTextEntry
+                        />
+                    )}
+                    name="password"
                 />
-                <S.Button onPress={() => handleSubmit()} >
-                    <S.Text >Sign up</S.Text>
-                </S.Button>
-            </S.Container>
-        </S.SafeAreaView>
+                {errors.password && <G.Error>{errors.password.message}</G.Error>}
+
+                <G.Button onPress={() => handleSubmit(onSubmit)} >
+                    <G.Text>Sign up</G.Text>
+                </G.Button>
+            </G.Container>
+        </G.SafeAreaView>
     );
 
 };
