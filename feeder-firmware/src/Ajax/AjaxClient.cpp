@@ -1,4 +1,5 @@
 #include "Ajax/AjaxClient.h"
+#include "Ajax/ApiUtils.h"
 
 AjaxClient::AjaxClient(String baseUrl, WiFiClient* wifiClient)
 {
@@ -11,6 +12,7 @@ AjaxClient::AjaxClient(String baseUrl, WiFiClient* wifiClient)
     this->baseUrl += "/";
 
   client.setTimeout(30000);
+  client.addHeader("Authorization", USER_JWT);
 }
 
 String AjaxClient::makeRequest(

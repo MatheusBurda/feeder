@@ -38,9 +38,7 @@ class UsersRepository implements IUsersRepository {
     const user = this.ormRepository.create({
       ...userData,
     });
-    await this.ormRepository.save(user);
-
-    return user;
+    return await this.ormRepository.save(user);
   }
 }
 

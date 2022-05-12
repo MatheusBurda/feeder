@@ -1,14 +1,15 @@
 import ICreateFirmwareDto from "@modules/firmwares/dtos/ICreateFirmwareDto";
+import ICreateFirmwareEntityDto from "@modules/firmwares/dtos/ICreateFIrmwareEnyityDto";
 import IUpdateFirmwareDto from "@modules/firmwares/dtos/IUpdateFirmwareDto";
 import IFirmwaresRepository from "@modules/firmwares/repositories/IFirmwaresRepository";
-import { Repository } from "typeorm";
+import { getRepository, Repository } from "typeorm";
 import Firmware from "../entities/Firmware";
 
 export default class FirmwaresRepository implements IFirmwaresRepository {
   private ormRepository: Repository<Firmware>;
 
   constructor() {
-    this.ormRepository = new Repository();
+    this.ormRepository = getRepository(Firmware);
   }
 
   public async findById(id: string): Promise<Firmware | undefined> {
@@ -36,8 +37,10 @@ export default class FirmwaresRepository implements IFirmwaresRepository {
     });
   }
 
-  public async create(firmware: ICreateFirmwareDto): Promise<Firmware> {
-    return this.ormRepository.create({ ...firmware });
+  public async create(firmware: ICreateFirmwareEntityDto): Promise<Firmware> {
+    const newFirmware = this.ormRepository.create({ ...firmware });
+    return await this.ormRepository.save(newFirmware);
   }
 
 }
+Repository

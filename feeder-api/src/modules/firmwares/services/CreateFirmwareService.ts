@@ -2,6 +2,7 @@ import IUsersRepository from "@modules/users/repositories/IUsersRepository";
 import AppError from "@shared/errors/AppError";
 import { inject, injectable } from "tsyringe";
 import ICreateFirmwareDto from "../dtos/ICreateFirmwareDto";
+import ICreateFirmwareEntityDto from "../dtos/ICreateFIrmwareEnyityDto";
 import Firmware from "../infra/typeorm/entities/Firmware";
 import IFirmwaresRepository from "../repositories/IFirmwaresRepository";
 
@@ -16,11 +17,16 @@ export default class CreateFirmwareService {
 
   public async execute(firmware: ICreateFirmwareDto): Promise<Firmware> {
     // TODO: Create validation
-    const userExists = !!await this.usersRepository.findById(firmware.ownerId);
+    const user = await this.usersRepository.findById(firmware.ownerId);
 
-    if (!userExists)
+    if (!user)
       throw new AppError(`User doesn't exists.`);
 
-    return await this.firmwareRepository.create(firmware);
+    const newFirmware: ICreateFirmwareEntityDto = {
+      ...firmware,
+      owner: user
+    };
+
+    return await this.firmwareRepository.create(newFirmware);
   }
 }

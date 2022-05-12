@@ -1,7 +1,8 @@
+import User from "@modules/users/infra/typeorm/entities/User";
 import IActivationTimeDto from "./IActivationTimeDto";
 
-export default interface ICreateFirmwareDto {
-  ownerId: string;
+export default interface ICreateFirmwareEntityDto {
+  owner: User;
   minHeight: number;
   doses: number;
   activationTimes: IActivationTimeDto[];

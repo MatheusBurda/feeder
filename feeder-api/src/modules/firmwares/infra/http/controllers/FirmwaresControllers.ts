@@ -41,7 +41,7 @@ export default class FirmwaresControllers {
   public async listByUserId(request: Request, response: Response): Promise<Response> {
     const listService = container.resolve(ListUserFirmwaresService);
 
-    const firmwares = await listService.execute(request.params.ownerId);
+    const firmwares = await listService.execute(request.user.id);
 
     return response.json(firmwares);
   }

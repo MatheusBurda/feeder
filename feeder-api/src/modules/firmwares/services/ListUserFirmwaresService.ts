@@ -14,7 +14,7 @@ class ListUserFirmwaresService {
   ) {}
 
   public async execute(userId: string): Promise<Firmware[]> {
-    const userExists = !!await this.usersRepository.findById(userId);
+    const userExists = await this.usersRepository.findById(userId);
 
     if (!userExists)
       throw new AppError(`User doesn't exists.`);
