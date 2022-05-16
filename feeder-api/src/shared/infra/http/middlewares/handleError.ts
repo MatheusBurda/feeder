@@ -8,6 +8,11 @@ const handleError = async (err: Error, request: Request, response: Response, _: 
       message: err.message,
     });
   }
+  else if (err instanceof SyntaxError)
+    return response.status(422).json({
+      status: 'error',
+      message: 'Unprocessable Entity.'
+    });
 
   return response.status(500).json({
     status: 'error',

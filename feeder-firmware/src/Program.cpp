@@ -45,8 +45,11 @@ void Program::execute() {
       }
     }
 
-    if (sensor.getDistance() >= firmwareSettings.getMinHeight())
+    if (sensor.getDistance() >= firmwareSettings.getMinHeight() &&
+      (lastNotificationHour < clock->getHour() ||
+      (lastNotificationHour == 23 && clock->getHour() == 0)))
     {
+      lastNotificationHour = clock->getHour();
       connection.notifyRecharge();
     }
   }

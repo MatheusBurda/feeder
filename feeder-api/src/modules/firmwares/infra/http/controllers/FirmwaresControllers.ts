@@ -16,7 +16,11 @@ export default class FirmwaresControllers {
       ...request.body
     });
 
-    return response.json(firmware);
+    const { owner, ...defaultInfo } = firmware;
+    return response.json({
+      ...defaultInfo,
+      ownerId: owner.id
+    });
   }
 
   public async notifyRecharge(request: Request, response: Response): Promise<Response> {
@@ -49,7 +53,11 @@ export default class FirmwaresControllers {
   public async updateById(request: Request, response: Response): Promise<Response> {
     const updateService = container.resolve(UpdateFirmwareService);
 
-    const firmware = await updateService.execute(request.body);
+    const firmware = await updateService.execute({
+      ...request.body,
+      ownerId: request.user.id,
+      id: request.params.id,
+    });
 
     return response.json(firmware);
   }

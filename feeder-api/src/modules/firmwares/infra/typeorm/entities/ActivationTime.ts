@@ -5,7 +5,9 @@ import Firmware from "./Firmware";
 
 @Entity('actiovationTimes')
 export default class ActivationTime extends BaseEntity {
-  @ManyToOne(() => Firmware, firmware => firmware.activationTimes)
+  @ManyToOne(() => Firmware, firmware => firmware.activationTimes, {
+    onDelete: 'CASCADE'
+  })
   @JoinColumn({ name: 'firmwareId' })
   firmware: Firmware;
 
