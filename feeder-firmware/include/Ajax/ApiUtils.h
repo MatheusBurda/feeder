@@ -1,9 +1,9 @@
 #pragma once
 
-#define BASE_URL "http://localhost:3333/"
+#define BASE_URL "https://feederapi.herokuapp.com/"
 
-#define FIRMWARE_ID "bb113f5c-8c0e-4884-bae6-3acf1f382053"
-#define USER_JWT "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NTIxMTQ3NDMsImV4cCI6MTY4MzY1MDc0Mywic3ViIjoiZGQzODI5MTAtYTE2Yi00ZjEzLWJiNTctZjQzOTBlMWQ0ZmI0In0.O9OJRS6m9gcetg4WfEpEGDgQgfv1m8SkTcdZGOjZ5As"
+#define FIRMWARE_ID "10df9a71-a54b-41b8-914b-405e44cda0f5"
+#define USER_JWT "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NTM4ODA3NzksImV4cCI6MTY4NTQxNjc3OSwic3ViIjoiNzJkMDVlZGItZWVjYy00NDhiLWEyYjMtYWU5OGMwOTMxZDgyIn0.iPFywtR5Sugq5T66Jvvj8F3F1arrAb9LbeisUSQv8cc"
 #define FIRMWARE_SETTINGS_GET "api/v1/firmwares/"
 #define CURRENT_TIME_GET "api/v1/firmwares/utils/time/"
 #define NOTIFY_RECHARGE_PATCH "api/v1/firmwares/"
