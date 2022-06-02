@@ -1,4 +1,4 @@
-import AppError from "@shared/errors/AppError";
+import AppError from "../../../../shared/errors/AppError";
 import { NextFunction, Request, Response } from "express";
 
 const handleError = async (err: Error, request: Request, response: Response, _: NextFunction) => {

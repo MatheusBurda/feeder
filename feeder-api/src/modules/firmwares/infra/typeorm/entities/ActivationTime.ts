@@ -1,5 +1,5 @@
-import BaseEntity from "@shared/infra/typeorm/BaseEntity";
-import WeekDay from "@modules/firmwares/enums/WeekDay";
+import BaseEntity from "../../../../../shared/infra/typeorm/BaseEntity";
+import WeekDay from "../../../../../modules/firmwares/enums/WeekDay";
 import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 import Firmware from "./Firmware";
 

@@ -1,4 +1,4 @@
-import AppError from "@shared/errors/AppError";
+import AppError from "../../../shared/errors/AppError";
 import { inject, injectable } from "tsyringe";
 import Firmware from "../infra/typeorm/entities/Firmware";
 import IFirmwaresRepository from "../repositories/IFirmwaresRepository";

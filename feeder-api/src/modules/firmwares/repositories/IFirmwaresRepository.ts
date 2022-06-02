@@ -5,7 +5,7 @@ import Firmware from "../infra/typeorm/entities/Firmware";
 
 export default interface IFirmwaresRepository {
   create(firmware: ICreateFirmwareEntityDto): Promise<Firmware>;
-  findById(id: string): Promise<Firmware | undefined>;
+  findById(id: string): Promise<Firmware | null>;
   listByUserId(userId: string): Promise<Firmware[]>;
   update(firmware: IUpdateFirmwareDto) : Promise<Firmware>;
 }

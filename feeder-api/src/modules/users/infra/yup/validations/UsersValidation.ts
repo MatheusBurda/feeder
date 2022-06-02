@@ -1,7 +1,7 @@
-import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
-import IUsersValidation from '@modules/users/validations/IUsersValidation';
-import AppError from '@shared/errors/AppError';
-import ValidationErrorResult from '@shared/errors/ValidationErrorResult';
+import ICreateUserDTO from '../../../../users/dtos/ICreateUserDTO';
+import IUsersValidation from '../../../../users/validations/IUsersValidation';
+import AppError from '../../../../../shared/errors/AppError';
+import ValidationErrorResult from '../../../../../shared/errors/ValidationErrorResult';
 import * as yup from 'yup';
 
 export default class UserValidation implements IUsersValidation {

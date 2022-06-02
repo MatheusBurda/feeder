@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-import CreateUserService from '@modules/users/services/CreateUserService';
-import ICreateUserDto from '@modules/users/dtos/ICreateUserDTO';
+import CreateUserService from '../../../../../modules/users/services/CreateUserService';
+import ICreateUserDto from '../../../../../modules/users/dtos/ICreateUserDTO';
 
 interface IResponseUser {
   email: string;

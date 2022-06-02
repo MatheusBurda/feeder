@@ -1,9 +1,9 @@
 import { hash } from 'bcryptjs';
 import { inject, injectable } from 'tsyringe';
 
-import User from '@modules/users/infra/typeorm/entities/User';
+import User from '../../../modules/users/infra/typeorm/entities/User';
 
-import AppError from '@shared/errors/AppError';
+import AppError from '../../../shared/errors/AppError';
 import IUsersRepository from '../repositories/IUsersRepository';
 import ICreateUserDto from '../dtos/ICreateUserDTO';
 import IUsersValidation from '../validations/IUsersValidation';

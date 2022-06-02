@@ -1,9 +1,9 @@
-import ICurrentTimeDto from '@modules/firmwares/dtos/ICurrentTimeDto';
-import CreateFirmwareService from '@modules/firmwares/services/CreateFirmwareService';
-import GetFirmwareService from '@modules/firmwares/services/GetFirmwareService';
-import ListUserFirmwaresService from '@modules/firmwares/services/ListUserFirmwaresService';
-import NotifyRechargeService from '@modules/firmwares/services/NotifyRechargeService';
-import UpdateFirmwareService from '@modules/firmwares/services/UpdateFirmwareService';
+import ICurrentTimeDto from '../../../../../modules/firmwares/dtos/ICurrentTimeDto';
+import CreateFirmwareService from '../../../../../modules/firmwares/services/CreateFirmwareService';
+import GetFirmwareService from '../../../../../modules/firmwares/services/GetFirmwareService';
+import ListUserFirmwaresService from '../../../../../modules/firmwares/services/ListUserFirmwaresService';
+import NotifyRechargeService from '../../../../../modules/firmwares/services/NotifyRechargeService';
+import UpdateFirmwareService from '../../../../../modules/firmwares/services/UpdateFirmwareService';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 

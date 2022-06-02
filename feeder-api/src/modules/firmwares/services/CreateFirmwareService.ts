@@ -1,5 +1,5 @@
-import IUsersRepository from "@modules/users/repositories/IUsersRepository";
-import AppError from "@shared/errors/AppError";
+import IUsersRepository from "../../../modules/users/repositories/IUsersRepository";
+import AppError from "../../../shared/errors/AppError";
 import { inject, injectable } from "tsyringe";
 import ICreateFirmwareDto from "../dtos/ICreateFirmwareDto";
 import ICreateFirmwareEntityDto from "../dtos/ICreateFIrmwareEnyityDto";

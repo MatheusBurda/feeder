@@ -9,7 +9,7 @@ import {
   JoinTable,
 } from 'typeorm';
 
-import BaseEntity from '@shared/infra/typeorm/BaseEntity';
+import BaseEntity from '../../../../../shared/infra/typeorm/BaseEntity';
 
 @Entity('users')
 class User extends BaseEntity {
