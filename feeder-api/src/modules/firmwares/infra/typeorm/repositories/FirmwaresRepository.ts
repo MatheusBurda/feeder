@@ -5,6 +5,7 @@ import IFirmwaresRepository from "../../../../../modules/firmwares/repositories/
 import { getRepository, Repository } from "typeorm";
 import ActivationTime from "../entities/ActivationTime";
 import Firmware from "../entities/Firmware";
+import { time } from "console";
 
 export default class FirmwaresRepository implements IFirmwaresRepository {
   private ormRepository: Repository<Firmware>;
@@ -25,8 +26,11 @@ export default class FirmwaresRepository implements IFirmwaresRepository {
       relations: [ 'activationTimes' ]
     });
 
-    console.log(times);
+    console.log('times', times);
 
+    if (!firmware) return null;
+
+    firmware.activationTimes = times;
 
     return firmware;
   }
