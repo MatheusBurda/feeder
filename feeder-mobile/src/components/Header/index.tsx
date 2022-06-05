@@ -1,7 +1,9 @@
 import React from 'react';
 
-import { SimpleLineIcons } from '@expo/vector-icons';
-import { Container, Icon, Text } from './styles';
+import { Entypo } from '@expo/vector-icons';
+import * as S from './styles';
+import { useNavigation } from '@react-navigation/native';
+import { navigationProp } from '../../routes/stack.routes';
 
 interface HeaderProps {
     title: string;
@@ -9,21 +11,26 @@ interface HeaderProps {
 
 export function Header({ title }: HeaderProps) {
 
-    const handlePress = () => {
+    const navigation = useNavigation<navigationProp>();
 
+    const handlePress = () => {
+        if (navigation.canGoBack())
+            navigation.goBack();
     }
 
     return (
-        <Container>
-            <Text>{title}</Text>
+        <S.Container>
 
-            <Icon onPress={handlePress}>
-                <SimpleLineIcons
-                    name="menu"
+            <S.Icon onPress={handlePress}>
+                <Entypo
+                    name="chevron-left"
                     style={{ fontSize: 28, color: '#fff' }}
                 />
-            </Icon>
-        </Container>
+            </S.Icon>
+
+            <S.Text>{title}</S.Text>
+
+        </S.Container>
     );
 }
 

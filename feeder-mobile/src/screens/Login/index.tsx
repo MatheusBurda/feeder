@@ -117,14 +117,14 @@ const Login: React.FC = () => {
                     <G.Text >Sign in</G.Text>
                 </G.Button>
 
+            </G.Container>
+            <S.Container>
                 <S.Text>
                     Don't have an account?  <S.Link onPress={navigateToSignUp}>
                         Sign Up
                     </S.Link>
                 </S.Text>
-
-            </G.Container>
-
+            </S.Container>
         </G.SafeAreaView>
     );
 };

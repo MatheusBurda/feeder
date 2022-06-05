@@ -19,7 +19,7 @@ interface Response {
     token: string;
 }
 
-interface FormData {
+interface NewUserProps {
     username: string;
     email: string;
     password: string;
@@ -27,7 +27,7 @@ interface FormData {
 
 const SignUp: React.FC = () => {
 
-    const { control, handleSubmit, getValues, formState: { errors } } = useForm<FormData>({
+    const { control, handleSubmit, getValues, formState: { errors } } = useForm<NewUserProps>({
         defaultValues: {
             username: '',
             email: '',
@@ -37,11 +37,11 @@ const SignUp: React.FC = () => {
 
     const onSubmit = async () => {
 
-        const { username, email, password } = getValues();
+        const newUserData: NewUserProps = getValues();
 
         try {
 
-            const { data } = await api.post<Response>("/users",);
+            const { data } = await api.post<Response>("/users", newUserData);
 
             api.defaults.headers.common['Authorization'] = 'Bearer ' + data.token;
 
@@ -57,6 +57,12 @@ const SignUp: React.FC = () => {
 
     const returnToLogin = () => {
         navigation.navigate('Login');
+    }
+
+    const checkSubmitDisabled = (): boolean => {
+        const { email, password, username }: NewUserProps = getValues();
+
+        return (email.length <= 0) && (password.length <= 0) && (username.length <= 0);
     }
 
     return (
@@ -130,7 +136,7 @@ const SignUp: React.FC = () => {
                 />
                 {errors.password && <G.Error>{errors.password.message}</G.Error>}
 
-                <G.Button onPress={() => handleSubmit(onSubmit)} >
+                <G.Button onPress={() => handleSubmit(onSubmit)} disabled={checkSubmitDisabled()}>
                     <G.Text>Sign up</G.Text>
                 </G.Button>
             </G.Container>
