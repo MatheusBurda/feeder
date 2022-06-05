@@ -46,6 +46,7 @@ export default class FirmwaresRepository implements IFirmwaresRepository {
       doses: firmware.doses,
       minHeight: firmware.minHeight,
       activationTimes: [...firmware.activationTimes],
+      recharge: !!firmware.recharge
     });
   }
 
