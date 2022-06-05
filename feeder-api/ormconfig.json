@@ -1,23 +1,17 @@
 {
-    "type": "postgres",
-    "host": "ec2-54-165-90-230.compute-1.amazonaws.com",
-    "port": 5432,
-    "username": "mwclqkfiwtvxpz",
-    "password": "1a296a3999cb8411528107df8fdcb40a259d8b2cffbd61a87ce2b00062a58a85",
-    "database": "d8tnpc1gdgf9np",
-    "ssl": true,
-    "entities": [
-        "./src/modules/**/infra/typeorm/entities/*.ts"
-    ],
-    "migrations": [
-        "./src/shared/infra/typeorm/migrations/*.ts"
-    ],
-    "cli": {
-        "migrationsDir": "./src/shared/infra/typeorm/migrations"
-    },
-    "extra": {
-        "ssl": {
-        "rejectUnauthorized": false
-        }
-    }
+  "type": "postgres",
+  "host": "localhost",
+  "port": 5432,
+  "username": "postgres",
+  "password": "batata123",
+  "database": "postgres",
+  "entities": [
+      "./src/modules/**/infra/typeorm/entities/*.ts"
+  ],
+  "migrations": [
+      "./src/shared/infra/typeorm/migrations/*.ts"
+  ],
+  "cli": {
+      "migrationsDir": "./src/shared/infra/typeorm/migrations"
+  }
 }
