@@ -16,6 +16,8 @@ export default class FirmwaresRepository implements IFirmwaresRepository {
   }
 
   public async findById(id: string): Promise<Firmware | null> {
+    const times = await this.activationTimesRepository.find();
+
     const firmware =  await this.ormRepository.findOne({
       where: {
         id: id
@@ -23,7 +25,7 @@ export default class FirmwaresRepository implements IFirmwaresRepository {
       relations: [ 'activationTimes' ]
     });
 
-    console.log(firmware?.activationTimes);
+    console.log(times);
 
 
     return firmware;
