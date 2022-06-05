@@ -4,6 +4,8 @@ import { SimpleLineIcons } from '@expo/vector-icons';
 
 import * as S from './styles';
 import * as G from '../../styles/styles'
+import { useNavigation } from '@react-navigation/native';
+import { navigationProp } from '../../routes/stack.routes';
 
 interface DeviceProps {
     name: string;
@@ -12,6 +14,12 @@ interface DeviceProps {
 }
 
 export function DeviceInfo({ name, nextActivation, id }: DeviceProps) {
+
+    const navigation = useNavigation<navigationProp>();
+
+    const goToSettings = () => {
+        navigation.navigate('DeviceSettings');
+    }
 
     return (
         <S.Container>
@@ -23,7 +31,7 @@ export function DeviceInfo({ name, nextActivation, id }: DeviceProps) {
                 </S.Highlight>
             </S.Text>
             <S.Text></S.Text>
-            <S.Button>
+            <S.Button onPress={goToSettings}>
                 <G.Text>Settings</G.Text>
             </S.Button>
         </S.Container>

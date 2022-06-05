@@ -9,12 +9,12 @@ import { Header } from '../../components/Header';
 import { DeviceInfo } from '../../components/DeviceInfo';
 import { Entypo } from '@expo/vector-icons';
 
-const Login: React.FC = () => {
+const Home: React.FC = () => {
 
     const navigation = useNavigation<navigationProp>();
 
     const addNewDevice = () => {
-        navigation.navigate('SignUp');
+        navigation.navigate('NewDevice');
     }
 
     return (
@@ -26,6 +26,8 @@ const Login: React.FC = () => {
 
                 <DeviceInfo name={"Casa 1"} nextActivation={"17:00:00"} />
                 <DeviceInfo name={"Escritorio"} nextActivation={"11:30:00"} />
+                <DeviceInfo name={"Escritorio 2"} nextActivation={"17:30:00"} />
+
                 <S.ButtonContainer onPress={addNewDevice}>
                     <S.IconButton>
                         <Entypo
@@ -41,4 +43,4 @@ const Login: React.FC = () => {
     );
 };
 
-export default Login;
+export default Home;

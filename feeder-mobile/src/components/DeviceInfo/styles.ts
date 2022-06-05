@@ -27,13 +27,12 @@ export const Container = styled.View`
     border-radius: 5px;
     padding: 15px;
     width: 100%;
-    justify-self: flex-start;
 `;
 
 export const Button = styled.TouchableHighlight`
     width: 100%;
     border-radius: 5px;
-    margin: 16px 0 0 0;
+    margin: 0;
     padding: 16px 32px;
     background-color:  ${theme.colors.green};
     justify-content: center;

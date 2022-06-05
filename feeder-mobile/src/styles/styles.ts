@@ -43,6 +43,17 @@ export const TextInput = styled.TextInput`
     padding-left: 16px;
 `;
 
+export const TextInputDark = styled.TextInput`
+    border-bottom-width: 1px;
+    border-color: ${theme.colors.backgroundDark};
+    margin: 16px 0;
+    height: 48px;
+    font-size: 24px;
+    color: ${theme.colors.backgroundDark};
+    width: 90%;
+    padding-left: 16px;
+`;
+
 export const Button = styled.TouchableHighlight`
     width: 90%;
     border-radius: 5px;
