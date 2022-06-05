@@ -9,8 +9,9 @@ import * as G from '../../styles/styles'
 import { Header } from '../../components/Header';
 import theme from '../../styles/theme';
 import { Entypo } from '@expo/vector-icons';
-import NumberSpin from '../../components/NumberSpin';
 import TimeInput from '../../components/TimeInput';
+import NumberSpin from '../../components/NumberSpin'
+import api from '../../services/api';
 
 const DeviceSettings: React.FC = () => {
 
@@ -23,6 +24,21 @@ const DeviceSettings: React.FC = () => {
     const saveSettings = () => {
         navigation.navigate('Home');
     }
+
+    async function fetchApi() {
+        try {
+            const { data } = await api.get<Response>("/");
+
+
+
+        } catch (err) {
+            console.log(err);
+        }
+
+    }
+
+
+
 
     return (
         <S.SafeAreaView>
@@ -40,6 +56,8 @@ const DeviceSettings: React.FC = () => {
 
                 <NumberSpin value={doses} onChange={setDoses} min={1} max={10} vertical={false} />
 
+                <TimeInput />
+                <TimeInput />
                 <TimeInput />
 
                 <S.Button onPress={saveSettings}>

@@ -10,7 +10,6 @@ export const SafeAreaView = styled.SafeAreaView`
 
 export const Container = styled.ScrollView`
     display: flex;
-    //align-items: center;
     background-color: ${theme.colors.background};
     flex: 1;
     width: 100%;

@@ -1,4 +1,3 @@
-import { Poppins_200ExtraLight } from '@expo-google-fonts/poppins';
 import { Entypo } from '@expo/vector-icons';
 import React from 'react'
 
@@ -10,9 +9,10 @@ interface SelectorProps {
     min: number;
     max: number;
     vertical: boolean;
+    disabled?: boolean;
 }
 
-const NumberSpin: React.FC<SelectorProps> = ({ value, min, max, onChange, vertical }: SelectorProps) => {
+const NumberSpin: React.FC<SelectorProps> = ({ value, min, max, onChange, vertical, disabled }: SelectorProps) => {
 
     const increment = () => {
         onChange(value >= max ? max : value + 1);
@@ -25,21 +25,24 @@ const NumberSpin: React.FC<SelectorProps> = ({ value, min, max, onChange, vertic
     return (
 
         <S.Container vertical={vertical}>
-            <S.IconButtonRed onPress={decrement}>
-                <Entypo
-                    name="minus"
-                    style={{ fontSize: 24, color: '#fff' }}
-                />
-            </S.IconButtonRed>
+            {!disabled &&
+                <S.IconButtonRed onPress={decrement}>
+                    <Entypo
+                        name="minus"
+                        style={{ fontSize: 24, color: '#fff' }}
+                    />
+                </S.IconButtonRed>
+            }
 
             <S.Text>{String(value).padStart(2, '0')}</S.Text>
-
-            <S.IconButton onPress={increment}>
-                <Entypo
-                    name="plus"
-                    style={{ fontSize: 24, color: '#fff' }}
-                />
-            </S.IconButton>
+            {!disabled &&
+                <S.IconButton onPress={increment}>
+                    <Entypo
+                        name="plus"
+                        style={{ fontSize: 24, color: '#fff' }}
+                    />
+                </S.IconButton>
+            }
         </S.Container>
 
     );

@@ -46,7 +46,7 @@ export const TextInput = styled.TextInput`
 export const TextInputDark = styled.TextInput`
     border-bottom-width: 1px;
     border-color: ${theme.colors.backgroundDark};
-    margin: 16px 0;
+    margin: 16px auto;
     height: 48px;
     font-size: 24px;
     color: ${theme.colors.backgroundDark};

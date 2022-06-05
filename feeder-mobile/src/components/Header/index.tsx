@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Entypo, SimpleLineIcons } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 import * as S from './styles';
 import { useNavigation } from '@react-navigation/native';
 import { navigationProp } from '../../routes/stack.routes';

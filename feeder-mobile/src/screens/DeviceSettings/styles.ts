@@ -8,13 +8,13 @@ export const SafeAreaView = styled.SafeAreaView`
     width: 100%;
 `;
 
-export const Container = styled.View`
+export const Container = styled.ScrollView`
     display: flex;
-    align-items: center;
     background-color: ${theme.colors.background};
     flex: 1;
     padding: 15px;
 `;
+
 
 export const Row = styled.View`
     display: flex;

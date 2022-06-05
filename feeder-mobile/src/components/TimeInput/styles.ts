@@ -1,29 +1,23 @@
 import styled from 'styled-components/native';
 import theme from '../../styles/theme';
 
-export const SafeAreaView = styled.SafeAreaView`
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    width: 100%;
-`;
-
 export const Container = styled.View`
     display: flex;
     align-items: center;
     flex-direction: row;
-    background-color: ${theme.colors.background};
-    flex: 1;
+    justify-content: space-between;
+    background-color: ${theme.colors.shape};
     width: 100%;
-    padding: 15px;
+    border-radius: 6px;
+    margin-top: 10px;
+    padding: 5px;
 `;
 
-export const Row = styled.View`
+export const Content = styled.View`
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
-    width: 80%;
+    padding-left: 10px;
 `
 
 export const IconButton = styled.TouchableOpacity`
@@ -42,17 +36,8 @@ export const IconButtonRed = styled.TouchableOpacity`
     align-items: center;
     height: 56px;
     width: 56px;
+    margin-left: 5px;
 `
-
-export const Button = styled.TouchableHighlight`
-    width: 100%;
-    border-radius: 5px;
-    margin: 16px 0 0 0;
-    padding: 16px 32px;
-    background-color:  ${theme.colors.green};
-    justify-content: center;
-    align-items: center;
-`;
 
 export const Text = styled.Text`
     color: ${theme.colors.placeholder};

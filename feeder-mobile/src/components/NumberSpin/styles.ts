@@ -8,7 +8,6 @@ interface ContainerProps {
 
 export const Container = styled.View<ContainerProps>`
     display: flex;
-    flex: 1;
     flex-direction: ${(prop)=> prop.vertical ? 'column-reverse' : 'row'};
     justify-content: space-between;
     align-items: center;
