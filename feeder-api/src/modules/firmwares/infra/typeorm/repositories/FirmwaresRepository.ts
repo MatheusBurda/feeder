@@ -16,12 +16,27 @@ export default class FirmwaresRepository implements IFirmwaresRepository {
   }
 
   public async findById(id: string): Promise<Firmware | null> {
-    return await this.ormRepository.findOne({
+    const times = await this.activationTimesRepository.find({
+      where: {
+        firmware: {
+          id: id
+        }
+      }
+    });
+
+    const firmware =  await this.ormRepository.findOne({
       where: {
         id: id
       },
       relations: [ 'actiovationTimes' ]
     });
+
+    if (!firmware)
+      return null;
+
+    firmware.activationTimes = times;
+
+    return firmware;
   }
 
   public async listByUserId(userId: string): Promise<Firmware[]> {
