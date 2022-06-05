@@ -25,6 +25,8 @@ class NotifyRechargeService {
 
     firmware.recharge = value;
 
+    this.firmwareRepository.update({...firmware, ownerId: userId});
+
     return firmware.recharge;
   }
 }

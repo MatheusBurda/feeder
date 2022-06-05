@@ -31,7 +31,7 @@ export default class FirmwaresControllers {
 
     const result = await notifyService.execute(firmwareId, ownerId, value ?? false);
 
-    return response.json({ success: result });
+    return response.json({ value: result });
   }
 
   public async findById(request: Request, response: Response): Promise<Response> {
