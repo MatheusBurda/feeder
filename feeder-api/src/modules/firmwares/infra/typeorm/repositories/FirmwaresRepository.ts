@@ -20,7 +20,7 @@ export default class FirmwaresRepository implements IFirmwaresRepository {
       where: {
         id: id
       },
-      relations: [ 'activationTimes' ]
+      relations: [ 'actiovationTimes' ]
     });
   }
 
