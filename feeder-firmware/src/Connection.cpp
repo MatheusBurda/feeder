@@ -15,14 +15,13 @@ void Connection::initWiFi(String ssid, String password) {
     delay(10);
     Serial.println("Connecting on: " + String(ssid));
     WiFi.begin(ssid, password);
+    WiFi.setAutoReconnect(true);
+    WiFi.persistent(true);
+
     while (WiFi.status() != WL_CONNECTED) {
         delay(100);
         Serial.print(".");
     }
-
-    WiFi.setAutoReconnect(true);
-    WiFi.persistent(true);
-
 
     Serial.println();
     Serial.println("Connection established to " + String(ssid));
@@ -36,8 +35,11 @@ bool Connection::isConnectedToWifi() {
 
 void Connection::loadFirmwareSettings(FirmwareSettings* output)
 {
-    String response = api.makeGet(FIRMWARE_SETTINGS_GET);
+    Serial.println(" Conectando carregando settings");
+    String response = api.makeGet(String(FIRMWARE_SETTINGS_GET) + FIRMWARE_ID);
     output->FromJson(response);
+    Serial.println("Carregado!");
+
 }
 
 void Connection::getCurrentTime(CurrentTime* output)

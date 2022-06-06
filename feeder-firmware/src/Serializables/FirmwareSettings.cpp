@@ -39,7 +39,7 @@ String FirmwareSettings::toJson()
 
 void FirmwareSettings::FromJson(String objectStr)
 {
-  StaticJsonDocument<1024> doc;
+  StaticJsonDocument<2048> doc;
   deserializeJson(doc, objectStr);
 
   JsonObject object = doc.as<JsonObject>();

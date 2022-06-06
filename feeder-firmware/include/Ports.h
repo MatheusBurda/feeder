@@ -1,5 +1,5 @@
 #pragma once
 
-#define ENGINE_PIN D2
+#define ENGINE_PIN D4
 #define DISTANCE_SENSOR_TRIGGER D5
 #define DISTANCE_SENSOR_ECHO D6
