@@ -19,7 +19,8 @@ export default class FirmwaresRepository implements IFirmwaresRepository {
     return await this.ormRepository.findOne({
       where: {
         id: id
-      }
+      },
+      relations: ['activationTimes']
     });
   }
 
@@ -45,6 +46,7 @@ export default class FirmwaresRepository implements IFirmwaresRepository {
       doses: firmware.doses,
       minHeight: firmware.minHeight,
       activationTimes: [...firmware.activationTimes],
+      recharge: !!firmware.recharge
     });
   }
 

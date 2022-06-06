@@ -7,7 +7,7 @@ void Program::init() {
   loadedSettings = false;
   clock = Clock::getInstance();
   engine.init();
-  connection.initWiFi("teupai", "pedropastel");
+  connection.initWiFi("Burda", "qwertyuiop");
 }
 
 void Program::feed() {

@@ -12,7 +12,11 @@ AjaxClient::AjaxClient(String baseUrl, WiFiClient* wifiClient)
     this->baseUrl += "/";
 
   client.setTimeout(30000);
-  client.addHeader("Authorization", USER_JWT);
+
+  String jwt = String(USER_JWT);
+  String headerName = String("Authorization");
+
+  client.addHeader(headerName, jwt);
 }
 
 String AjaxClient::makeRequest(

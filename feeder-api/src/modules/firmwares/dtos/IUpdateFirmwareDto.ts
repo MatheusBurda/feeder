@@ -6,4 +6,5 @@ export default interface IUpdateFirmwareDto {
   minHeight: number;
   doses: number;
   activationTimes: IActivationTimeDto[];
+  recharge: boolean;
 }
