@@ -10,7 +10,7 @@ export const Container = styled.View`
     width: 100%;
     border-radius: 6px;
     margin-top: 10px;
-    padding: 5px;
+    padding: 15px;
 `;
 
 export const Content = styled.View`

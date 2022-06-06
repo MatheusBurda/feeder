@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useNavigation } from '@react-navigation/native';
 import { navigationProp } from '../../routes/stack.routes';
@@ -9,7 +9,7 @@ import * as S from './styles';
 import * as G from '../../styles/styles'
 import theme from '../../styles/theme';
 import api from '../../services/api';
-import { isEmail } from '../../utils/verifyEmail';
+import { AxiosError } from 'axios';
 
 interface Response {
     user: {
@@ -27,7 +27,9 @@ interface NewUserProps {
 
 const SignUp: React.FC = () => {
 
-    const { control, handleSubmit, getValues, formState: { errors } } = useForm<NewUserProps>({
+    const [error, setError] = useState('');
+
+    const { control, getValues, formState: { errors } } = useForm<NewUserProps>({
         defaultValues: {
             username: '',
             email: '',
@@ -37,18 +39,27 @@ const SignUp: React.FC = () => {
 
     const onSubmit = async () => {
 
-        const newUserData: NewUserProps = getValues();
+        const { username, email, password }: NewUserProps = getValues();
+
+        if(username.length < 8){
+            setError('Username must have at least 8 characters');
+            return;
+        }
 
         try {
 
-            const { data } = await api.post<Response>("/users", newUserData);
+            await api.post("/users", { username, email, password });
+
+            const { data } = await api.post<Response>("/sessions", { email, password });
 
             api.defaults.headers.common['Authorization'] = 'Bearer ' + data.token;
 
             navigation.navigate('Home');
 
         } catch (err) {
-            console.log(err);
+            const error = err as AxiosError<{message: string}>;
+
+            setError(error.response?.data.message || 'Could not Sign Up');
         }
 
     }
@@ -57,12 +68,6 @@ const SignUp: React.FC = () => {
 
     const returnToLogin = () => {
         navigation.navigate('Login');
-    }
-
-    const checkSubmitDisabled = (): boolean => {
-        const { email, password, username }: NewUserProps = getValues();
-
-        return (email.length <= 0) && (password.length <= 0) && (username.length <= 0);
     }
 
     return (
@@ -90,11 +95,11 @@ const SignUp: React.FC = () => {
                             onBlur={onBlur}
                             onChangeText={onChange}
                             value={value}
+                            autoCapitalize='none'
                         />
                     )}
                     name="username"
                 />
-                {errors.username && <G.Error>{errors.username.message}</G.Error>}
 
                 <Controller
                     control={control}
@@ -110,11 +115,11 @@ const SignUp: React.FC = () => {
                             onBlur={onBlur}
                             onChangeText={onChange}
                             value={value}
+                            autoCapitalize='none'
                         />
                     )}
                     name="email"
                 />
-                {errors.email && <G.Error>{errors.email.message}</G.Error>}
 
                 <Controller
                     control={control}
@@ -130,13 +135,15 @@ const SignUp: React.FC = () => {
                             onChangeText={onChange}
                             value={value}
                             secureTextEntry
+                            autoCapitalize='none'
                         />
                     )}
                     name="password"
                 />
-                {errors.password && <G.Error>{errors.password.message}</G.Error>}
 
-                <G.Button onPress={() => handleSubmit(onSubmit)} disabled={checkSubmitDisabled()}>
+                {error.length != 0 && <G.Error>{error}</G.Error>}
+
+                <G.Button onPress={() => onSubmit()}>
                     <G.Text>Sign up</G.Text>
                 </G.Button>
             </G.Container>

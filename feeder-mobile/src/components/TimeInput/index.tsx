@@ -1,22 +1,39 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import * as S from './styles'
-import * as G from '../../styles/styles'
 
 import NumberSpin from '../../components/NumberSpin';
-import { Entypo, Feather } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 
 interface TimeInputProps {
-    deleteFunction?: () => void;
+    deleteFunction: (id: string) => void;
+    updateTime: (item: ActivationTime) => void;
+    hour: number;
+    minutes: number;
+    id: string;
 }
 
-const TimeInput: React.FC<TimeInputProps> = ({ deleteFunction }) => {
+interface ActivationTime {
+    id: string;
+    hour: number;
+    minutes: number;
+}
 
-    const [hour, setHour] = useState(10);
-    const [minutes, setMinutes] = useState(6);
+const TimeInput: React.FC<TimeInputProps> = (props) => {
+
+    const [hour, setHour] = useState(props.hour);
+    const [minutes, setMinutes] = useState(props.minutes);
     const [editing, setEditing] = useState(false);
 
     const toggleEditing = () => {
+
+        if (editing)
+            props.updateTime({
+                id: props.id,
+                hour: hour,
+                minutes: minutes
+            })
+
         setEditing(!editing);
     }
 
@@ -43,7 +60,7 @@ const TimeInput: React.FC<TimeInputProps> = ({ deleteFunction }) => {
                         />
                     }
                 </S.IconButton>
-                <S.IconButtonRed onPress={deleteFunction}>
+                <S.IconButtonRed onPress={() => props.deleteFunction(props.id)}>
                     <Feather
                         name="trash"
                         style={{ fontSize: 24, color: '#fff' }}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useNavigation } from '@react-navigation/native';
 import { navigationProp } from '../../routes/stack.routes';
@@ -9,6 +9,8 @@ import * as G from '../../styles/styles'
 import theme from '../../styles/theme';
 import api from '../../services/api';
 import { isEmail } from '../../utils/verifyEmail';
+
+import  { AxiosError } from 'axios'
 
 interface LoginData {
     loginInfo: string;
@@ -22,14 +24,16 @@ interface ApiLoginInfo {
 }
 
 interface Response {
-    user: {
+    responseUser: {
+        id: string;
         email: string;
-        username: string;
     },
     token: string;
 }
 
 const Login: React.FC = () => {
+
+    const [error, setError] = useState('');
 
     const navigation = useNavigation<navigationProp>();
 
@@ -37,7 +41,7 @@ const Login: React.FC = () => {
         navigation.navigate('SignUp');
     }
 
-    const { control, handleSubmit, getValues, formState: { errors } } = useForm<LoginData>({
+    const { control, getValues, formState: { errors } } = useForm<LoginData>({
         defaultValues: {
             loginInfo: '',
             password: ''
@@ -45,8 +49,9 @@ const Login: React.FC = () => {
     });
 
     const onSubmit = async () => {
+        const data = getValues();
 
-        const { loginInfo, password } = getValues();
+        const { loginInfo, password } = data;
 
         const apiLoginInfo: ApiLoginInfo = isEmail(loginInfo) ?
             { email: loginInfo, password } :
@@ -54,17 +59,20 @@ const Login: React.FC = () => {
 
         try {
 
-            const { data } = await api.post<Response>("/users", apiLoginInfo);
+            const { data } = await api.post<Response>("/sessions", apiLoginInfo);
 
             api.defaults.headers.common['Authorization'] = 'Bearer ' + data.token;
 
             navigation.navigate('Home');
 
         } catch (err) {
-            console.log(err);
+
+            const error = err as AxiosError<{message: string}>;
+
+            setError(error.response?.data.message || 'Could not authenticate');
+
         }
     }
-
 
     return (
         <G.SafeAreaView>
@@ -86,11 +94,11 @@ const Login: React.FC = () => {
                             onBlur={onBlur}
                             onChangeText={onChange}
                             value={value}
+                            autoCapitalize='none'
                         />
                     )}
                     name="loginInfo"
                 />
-                {errors.loginInfo && <G.Error>{errors.loginInfo.message}</G.Error>}
 
 
                 <Controller
@@ -107,15 +115,17 @@ const Login: React.FC = () => {
                             onChangeText={onChange}
                             value={value}
                             secureTextEntry
+                            autoCapitalize='none'
                         />
                     )}
                     name="password"
                 />
-                {errors.password && <G.Error>{errors.password.message}</G.Error>}
 
-                <G.Button onPress={() => handleSubmit(onSubmit)} >
+                <G.Button onPress={onSubmit} >
                     <G.Text >Sign in</G.Text>
                 </G.Button>
+
+                {error.length != 0 && <G.Error>{error}</G.Error>}
 
             </G.Container>
             <S.Container>

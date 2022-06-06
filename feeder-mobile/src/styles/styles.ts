@@ -9,8 +9,9 @@ export const View = styled.View`
 
 export const Error = styled.Text`
     color: ${theme.colors.red};
-    font-size: 12px;
+    font-size: 14px;
     font-family: ${theme.fonts.regular};
+    margin-top: 5px;
 `;
 
 export const SafeAreaView = styled.SafeAreaView`

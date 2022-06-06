@@ -24,7 +24,7 @@ export const Row = styled.View`
     width: 80%;
 `
 
-export const IconButton = styled.TouchableOpacity`
+export const IconButton = styled.View`
     background-color: ${theme.colors.green};
     border-radius: 23px;
     justify-content: center;
@@ -56,4 +56,15 @@ export const Text = styled.Text`
     color: ${theme.colors.placeholder};
     font-size: 24px;
     font-family: ${theme.fonts.regular};
+`;
+
+export const ButtonContainer = styled.TouchableOpacity`
+    background-color: ${theme.colors.shape};
+    display: flex;
+    border-radius: 5px;
+    padding: 15px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
 `;
