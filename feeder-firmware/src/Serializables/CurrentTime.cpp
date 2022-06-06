@@ -41,7 +41,7 @@ void CurrentTime::FromJson(String objectStr)
 
   JsonObject object = doc.as<JsonObject>();
   
-  hours = object["hour"];
+  hours = object["hours"];
   minutes = object["minutes"];
   seconds = object["seconds"];
 }

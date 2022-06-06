@@ -8,6 +8,7 @@ Clock::Clock() {
     hours = 0;
     minutes = 0;
     seconds = 0;
+    microsseconds = 0;
 
     last = std::chrono::steady_clock::now();
 }
@@ -46,12 +47,15 @@ void Clock::update(Connection* connection)
         hours = time.getHours();
         minutes = time.getMinutes();
         seconds = time.getSeconds();
+        microsseconds = seconds * 1000000;
         loaded = true;
     }
 
     std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
 
-    seconds += std::chrono::duration_cast<std::chrono::seconds>(now - last).count();
+    microsseconds += std::chrono::duration_cast<std::chrono::microseconds>(now - last).count();
+
+    seconds = microsseconds / 1000000;
 
     last = now;
 
@@ -59,6 +63,7 @@ void Clock::update(Connection* connection)
     {
         minutes++;
         seconds = 0;
+        microsseconds = 0;
     }
 
     if (minutes >= 60)
