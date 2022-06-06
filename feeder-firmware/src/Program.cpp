@@ -39,7 +39,7 @@ void Program::execute() {
 
     for (ActivationTime time : times)
     {
-      if (time.getHour() >= clock->getHour())
+      if (time.getHour() == clock->getHour() && time.getMinutes() == clock->getMinutes())
       {
         feed();
       }
