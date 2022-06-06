@@ -10,9 +10,10 @@ interface SelectorProps {
     max: number;
     vertical: boolean;
     disabled?: boolean;
+    text?: string;
 }
 
-const NumberSpin: React.FC<SelectorProps> = ({ value, min, max, onChange, vertical, disabled }: SelectorProps) => {
+const NumberSpin: React.FC<SelectorProps> = ({ value, min, max, onChange, vertical, disabled, text }: SelectorProps) => {
 
     const increment = () => {
         onChange(value >= max ? max : value + 1);
@@ -34,7 +35,7 @@ const NumberSpin: React.FC<SelectorProps> = ({ value, min, max, onChange, vertic
                 </S.IconButtonRed>
             }
 
-            <S.Text>{String(value).padStart(2, '0')}</S.Text>
+            <S.Text>{text}{String(value).padStart(2, '0')}</S.Text>
             {!disabled &&
                 <S.IconButton onPress={increment}>
                     <Entypo

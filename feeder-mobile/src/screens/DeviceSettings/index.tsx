@@ -1,44 +1,111 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, RouteProp } from '@react-navigation/native';
 import { navigationProp } from '../../routes/stack.routes';
 
 import * as S from './styles'
 import * as G from '../../styles/styles'
 
 import { Header } from '../../components/Header';
-import theme from '../../styles/theme';
-import { Entypo } from '@expo/vector-icons';
 import TimeInput from '../../components/TimeInput';
 import NumberSpin from '../../components/NumberSpin'
 import api from '../../services/api';
+import { Entypo } from '@expo/vector-icons';
 
-const DeviceSettings: React.FC = () => {
+export interface ActivationTime {
+    id: string;
+    hour: number;
+    minutes: number;
+}
 
-    const [doses, setDoses] = useState(10);
+export interface Response {
+    doses: number;
+    recharge: boolean;
+    activationTimes: ActivationTime[];
+}
 
-    const [firmwareName, setFirmwareName] = useState('Nome da ratazana');
+interface DeviceProps {
+    route: RouteProp<{ params: { id: string } }, 'params'>
+}
+
+const DeviceSettings: React.FC<DeviceProps> = ({ route }) => {
+
+    const { id } = route.params;
+
+    const [doses, setDoses] = useState(0);
+
+    const [times, setTimes] = useState<ActivationTime[]>([]);
 
     const navigation = useNavigation<navigationProp>();
 
-    const saveSettings = () => {
-        navigation.navigate('Home');
-    }
-
-    async function fetchApi() {
+    const fetchMyAPI = useCallback(async () => {
         try {
-            const { data } = await api.get<Response>("/");
 
+            const { data } = await api.get<Response>(`/firmwares/${id}`);
 
+            const { doses, activationTimes } = data;
+
+            setTimes(activationTimes);
+            setDoses(doses);
 
         } catch (err) {
             console.log(err);
         }
 
+    }, [id]);
+
+    const saveSettings = useCallback(async () => {
+        try {
+            await api.put(`/firmwares/${id}`, {
+                activationTimes: times.map(time => ({
+                    hour: time.hour,
+                    minutes: time.minutes
+                })),
+                doses,
+                minHeight: 6
+            });
+            navigation.navigate('Home');
+        } catch (err) {
+
+        }
+    }, [id, times, doses]);
+
+    const deleteTime = (id: string) => {
+        const newArray = times.filter((item) => item.id !== id);
+
+        setTimes(newArray);
+    }
+
+    const addNewActivationTime = () => {
+
+        const date = new Date();
+
+        const newActivationTime = {
+            hour: date.getHours(),
+            minutes: date.getMinutes(),
+            id: `${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`
+        }
+
+        const newTimesarray = [...times, newActivationTime];
+
+        setTimes(newTimesarray);
+
     }
 
 
+    const updateTime = (timeToChange: ActivationTime) => {
 
+        const newArray = times.filter((item) => item.id !== timeToChange.id);
+
+        const newTimesarray = [...newArray, timeToChange];
+
+        setTimes(newTimesarray);
+
+    }
+
+    useEffect(() => {
+        fetchMyAPI();
+    }, [])
 
     return (
         <S.SafeAreaView>
@@ -47,20 +114,29 @@ const DeviceSettings: React.FC = () => {
 
             <S.Container>
 
-                <G.TextInputDark
-                    placeholder='Name'
-                    autoCompleteType='email'
-                    placeholderTextColor={theme.colors.placeholder}
-                    value={firmwareName}
-                />
+                <NumberSpin value={doses} onChange={setDoses} min={1} max={10} vertical={false} text={"Doses: "} />
 
-                <NumberSpin value={doses} onChange={setDoses} min={1} max={10} vertical={false} />
+                {times.map((item) =>
+                    <TimeInput
+                        hour={item.hour}
+                        minutes={item.minutes}
+                        key={item.id}
+                        deleteFunction={deleteTime}
+                        id={item.id}
+                        updateTime={updateTime}
+                    />)
+                }
 
-                <TimeInput />
-                <TimeInput />
-                <TimeInput />
+                <S.ButtonContainer onPress={() => addNewActivationTime()}>
+                    <S.IconButton>
+                        <Entypo
+                            name="plus"
+                            style={{ fontSize: 24, color: '#fff' }}
+                        />
+                    </S.IconButton>
+                </S.ButtonContainer>
 
-                <S.Button onPress={saveSettings}>
+                <S.Button onPress={() => saveSettings()}>
                     <G.Text>Save</G.Text>
                 </S.Button>
 
