@@ -17,17 +17,25 @@ ActivationTime::~ActivationTime()
 
 }
 
-void ActivationTime::FromJson(String json)
+void ActivationTime::fromJson(String json)
 {
-  StaticJsonDocument<128> doc;
+  StaticJsonDocument<256> doc;
   deserializeJson(doc, json);
 
   JsonObject object = doc.as<JsonObject>();
   
   id = object["id"].as<String>();
-  weekDay = object["weekDay"].as<String>();
-  hour = object["hour"];
-  minutes = object["minutes"];
+  hour = object["hour"].as<int>();
+  minutes = object["minutes"].as<int>();
+  weekDay = "";
+
+  Serial.println(
+    String("=========time loaded===================") +
+    "id: " + id + '\n' +
+    "hour: " + hour + '\n' +
+    "minutes: " + minutes + '\n' +
+    "========================================"
+    );
 }
 
 String ActivationTime::toJson()

@@ -18,7 +18,7 @@ namespace Serializables
     ~FirmwareSettings();
 
     String toJson() override;
-    void FromJson(String objectStr) override;
+    void fromJson(String objectStr) override;
 
     String getId() const;
     float getMinHeight() const;

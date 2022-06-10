@@ -19,6 +19,6 @@ namespace Serializables
     int getSeconds() const;
 
     String toJson() override;
-    void FromJson(String objectStr) override;
+    void fromJson(String objectStr) override;
   };
 }

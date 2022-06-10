@@ -34,14 +34,14 @@ String CurrentTime::toJson()
   return "";
 }
 
-void CurrentTime::FromJson(String objectStr)
+void CurrentTime::fromJson(String objectStr)
 {
   StaticJsonDocument<96> doc;
   deserializeJson(doc, objectStr);
 
   JsonObject object = doc.as<JsonObject>();
   
-  hours = object["hours"];
-  minutes = object["minutes"];
-  seconds = object["seconds"];
+  hours = object["hours"].as<int>();
+  minutes = object["minutes"].as<int>();
+  seconds = object["seconds"].as<int>();
 }

@@ -22,7 +22,7 @@ namespace Serializables
     int getMinutes() const;
 
     String toJson() override;
-    void FromJson(String objectStr) override;
+    void fromJson(String objectStr) override;
 
     JsonObject getJsonObject();
   };

@@ -12,8 +12,7 @@ private:
 
     int hours;
     int minutes;
-    int seconds;
-    int microsseconds;
+    int64_t seconds;
 
 public:
     static Clock* getInstance();

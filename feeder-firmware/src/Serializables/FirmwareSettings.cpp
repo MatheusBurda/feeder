@@ -37,7 +37,7 @@ String FirmwareSettings::toJson()
   return output;
 }
 
-void FirmwareSettings::FromJson(String objectStr)
+void FirmwareSettings::fromJson(String objectStr)
 {
   StaticJsonDocument<2048> doc;
   deserializeJson(doc, objectStr);
@@ -48,17 +48,18 @@ void FirmwareSettings::FromJson(String objectStr)
   minHeight = object["minHeight"];
   doses = object["doses"];
 
-  JsonArray jsonActivationTimes = object["activationTimes"].to<JsonArray>();
+  JsonArray jsonActivationTimes = object["activationTimes"];
   
-  for(JsonVariant time : jsonActivationTimes) {
+  for(JsonObject time : jsonActivationTimes) {
     ActivationTime activationTime;
 
     String json;
     serializeJson(time, json);
 
-    activationTime.FromJson(json);
+    activationTime.fromJson(json);
 
     activationTimes.push_back(activationTime);
+    delay(5000);
   }
 }
 

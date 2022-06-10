@@ -37,7 +37,7 @@ void Connection::loadFirmwareSettings(FirmwareSettings* output)
 {
     Serial.println(" Conectando carregando settings");
     String response = api.makeGet(String(FIRMWARE_SETTINGS_GET) + FIRMWARE_ID);
-    output->FromJson(response);
+    output->fromJson(response);
     Serial.println("Carregado!");
 
 }
@@ -45,7 +45,7 @@ void Connection::loadFirmwareSettings(FirmwareSettings* output)
 void Connection::getCurrentTime(CurrentTime* output)
 {
     String response = api.makeGet(CURRENT_TIME_GET);
-    output->FromJson(response);
+    output->fromJson(response);
 }
 
 void Connection::notifyRecharge()

@@ -76,7 +76,7 @@ void AjaxClient::makeGet(String path, Serializable* response)
   String objString = makeGet(path);
   
   if (response != nullptr && objString != "")
-    response->FromJson(objString);
+    response->fromJson(objString);
 }
 
 String AjaxClient::makePost(String path, Serializable* body)
@@ -89,7 +89,7 @@ void AjaxClient::makePost(String path, Serializable* response, Serializable* bod
   String objString = makePost(path, body);
   
   if (response != nullptr && objString != "")
-    response->FromJson(objString);
+    response->fromJson(objString);
 }
 
 String AjaxClient::makePut(String path, Serializable* body)
@@ -102,7 +102,7 @@ void AjaxClient::makePut(String path, Serializable* response, Serializable* body
   String objString = makePut(path, body);
   
   if (response != nullptr && objString != "")
-    response->FromJson(objString);
+    response->fromJson(objString);
 }
 
 String AjaxClient::makePatch(String path, Serializable* body)
@@ -115,5 +115,5 @@ void AjaxClient::makePatch(String path, Serializable* response, Serializable* bo
   String objString = makePatch(path, body);
   
   if (response != nullptr && objString != "")
-    response->FromJson(objString);
+    response->fromJson(objString);
 }

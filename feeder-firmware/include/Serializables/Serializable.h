@@ -7,5 +7,5 @@ class Serializable
 {
 public:
   virtual String toJson() = 0;
-  virtual void FromJson(String objectStr) = 0;
+  virtual void fromJson(String objectStr) = 0;
 };
