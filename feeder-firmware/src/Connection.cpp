@@ -1,4 +1,6 @@
 #include "Connection.h"
+#include "Serializables/BoolValue.h"
+using namespace Serializables;
 
 Connection::Connection() :
 api(BASE_URL, &wifi)
@@ -50,5 +52,7 @@ void Connection::getCurrentTime(CurrentTime* output)
 
 void Connection::notifyRecharge()
 {
-    api.makePatch(String(NOTIFY_RECHARGE_PATCH) + FIRMWARE_ID, nullptr);
+    BoolValue value(true);
+    api.makePatch(String(NOTIFY_RECHARGE_PATCH) + FIRMWARE_ID, &value);
+    Serial.println("> Notified Recharge!");
 }
