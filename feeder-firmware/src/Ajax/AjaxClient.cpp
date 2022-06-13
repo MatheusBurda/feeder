@@ -28,6 +28,10 @@ String AjaxClient::makeRequest(
   String jwt = String(USER_JWT);
   String headerName = String("Authorization");
 
+  String contentTypeHeader = String("Content-Type");
+  String contentType = String("application/json");
+
+  client.addHeader(contentTypeHeader, contentType);
   client.addHeader(headerName, jwt);
 
   int httpCode = 0;
