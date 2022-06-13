@@ -12,11 +12,6 @@ AjaxClient::AjaxClient(String baseUrl, WiFiClient* wifiClient)
     this->baseUrl += "/";
 
   client.setTimeout(30000);
-
-  String jwt = String(USER_JWT);
-  String headerName = String("Authorization");
-
-  client.addHeader(headerName, jwt);
 }
 
 String AjaxClient::makeRequest(
@@ -30,9 +25,17 @@ String AjaxClient::makeRequest(
 
   client.begin(*wifiClient, url);
 
+  String jwt = String(USER_JWT);
+  String headerName = String("Authorization");
+
+  client.addHeader(headerName, jwt);
+
   int httpCode = 0;
   String response = "",
     bodyStr = body != nullptr ? body->toJson() : "";
+
+  if (body != nullptr)
+    Serial.println(bodyStr);
 
   switch (methodName)
   {

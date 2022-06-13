@@ -52,7 +52,7 @@ void Connection::getCurrentTime(CurrentTime* output)
 
 void Connection::notifyRecharge()
 {
-    BoolValue value(true);
+    BoolValue value = BoolValue(true);
     api.makePatch(String(NOTIFY_RECHARGE_PATCH) + FIRMWARE_ID, &value);
     Serial.println("> Notified Recharge!");
 }

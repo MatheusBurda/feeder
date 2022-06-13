@@ -59,7 +59,6 @@ void FirmwareSettings::fromJson(String objectStr)
     activationTime.fromJson(json);
 
     activationTimes.push_back(activationTime);
-    delay(5000);
   }
 }
 
