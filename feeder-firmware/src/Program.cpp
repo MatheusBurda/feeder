@@ -6,7 +6,7 @@ void Program::init() {
     loadedSettings = false;
     clock = Clock::getInstance();
     engine.init();
-    connection.initWiFi("virusgratis2G", "mEWMJowj7A");
+    connection.initWiFi("", "");
 }
 
 void Program::feed() {
@@ -16,13 +16,13 @@ void Program::feed() {
         engine.open();
         delay(500);
         engine.close();
+        delay(500);
     }
 
-    if (sensor.getDistance() >= firmwareSettings.getMinHeight() &&
-        (lastNotificationHour < clock->getHour() ||
-        (lastNotificationHour == 23 && clock->getHour() == 0)))
+    sensor.read();
+
+    if (sensor.getDistance() >= firmwareSettings.getMinHeight())
     {
-        lastNotificationHour = clock->getHour();
         connection.notifyRecharge();
     }
 }
@@ -48,11 +48,6 @@ void Program::execute() {
         std::vector<ActivationTime> times = firmwareSettings.getActivationTimes();
 
         for (ActivationTime time : times) {
-            /*Serial.println("Hour:");
-            Serial.println(time.getHour());
-            Serial.println("Minutes:");
-            Serial.println(time.getMinutes());
-            Serial.println("==================");*/
             if (time.getHour() == clock->getHour() && time.getMinutes() == clock->getMinutes()) {
                 Serial.println("It's time to feed!!!");
                 feed();
