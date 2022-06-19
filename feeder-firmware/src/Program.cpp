@@ -6,7 +6,7 @@ void Program::init() {
     loadedSettings = false;
     clock = Clock::getInstance();
     engine.init();
-    connection.initWiFi("", "");
+    connection.initWiFi("MFS2G", "flasil201182");
 }
 
 void Program::feed() {
@@ -14,7 +14,7 @@ void Program::feed() {
 
     for (int i = 0; i < doses; i++) {
         engine.open();
-        delay(500);
+        delay(300);
         engine.close();
         delay(500);
     }
@@ -38,7 +38,7 @@ void Program::execute() {
         }
     } 
     else {
-        connection.initWiFi("", "");
+        connection.initWiFi("MFS2G", "flasil201182");
     }
 
     clock->update(&connection);
