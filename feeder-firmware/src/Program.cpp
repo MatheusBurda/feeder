@@ -6,7 +6,7 @@ void Program::init() {
     loadedSettings = false;
     clock = Clock::getInstance();
     engine.init();
-    connection.initWiFi("MFS2G", "flasil201182");
+    connection.initWiFi("teupai", "pedropastel");
 }
 
 void Program::feed() {
@@ -21,24 +21,21 @@ void Program::feed() {
 
     sensor.read();
 
-    if (sensor.getDistance() >= firmwareSettings.getMinHeight())
-    {
+    if (sensor.getDistance() >= firmwareSettings.getMinHeight()) {
         connection.notifyRecharge();
     }
 }
 
 void Program::execute() {
 
-    if (connection.isConnectedToWifi()) {
-
-        if (!loadedSettings) {
-            connection.loadFirmwareSettings(&firmwareSettings);
-            Serial.println("Conectado");
-            loadedSettings = true;
+    if (!loadedSettings) {
+        if (!connection.isConnectedToWifi()) {
+            connection.initWiFi("teupai", "pedropastel");
         }
-    } 
-    else {
-        connection.initWiFi("MFS2G", "flasil201182");
+
+        connection.loadFirmwareSettings(&firmwareSettings);
+        Serial.println("Conectado");
+        loadedSettings = true;
     }
 
     clock->update(&connection);
